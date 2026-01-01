@@ -1,286 +1,430 @@
-# Features Directory
+# Features Guide
 
-This directory is where you'll build your app-specific features. Each feature should be self-contained and follow the MVVM architecture pattern.
+How to add features to your AppStarter app.
 
-## 📁 Recommended Folder Structure
+## 🎯 Overview
 
-Organize each feature in its own directory with the following structure:
+This guide explains how to add new features to your app following the established patterns and best practices.
+
+## 📁 Feature Structure
+
+Each feature should be self-contained in its own folder:
 
 ```
 Features/
-├── FeatureName/
-│   ├── Models/
-│   │   └── FeatureModel.swift
-│   ├── ViewModels/
-│   │   └── FeatureViewModel.swift
-│   ├── Views/
-│   │   ├── FeatureView.swift
-│   │   └── FeatureDetailView.swift
-│   └── Services/
-│       └── FeatureService.swift
-└── AnotherFeature/
-    └── ...
+└── YourFeature/
+    ├── Models/
+    │   └── FeatureModel.swift
+    ├── Views/
+    │   └── FeatureView.swift
+    ├── ViewModels/
+    │   └── FeatureViewModel.swift
+    └── Services/
+        └── FeatureService.swift
 ```
 
-## 🏗️ MVVM Architecture Guidelines
+## 🏗️ MVVM Pattern
 
 ### Model
-- **Purpose**: Represents data and business logic
-- **Responsibilities**:
-  - Define data structures
-  - Data validation
-  - Business rules
-- **Example**:
+Data structures and business entities.
+
 ```swift
-struct Task: Identifiable, Codable {
+// Features/Todo/Models/Todo.swift
+struct Todo: Identifiable, Codable {
     let id: UUID
     var title: String
     var isCompleted: Bool
     var createdAt: Date
-}
-```
-
-### View
-- **Purpose**: UI presentation layer
-- **Responsibilities**:
-  - Display data
-  - Handle user interactions
-  - Delegate actions to ViewModel
-- **Best Practices**:
-  - Keep views dumb (no business logic)
-  - Use `@StateObject` for owned ViewModels
-  - Use `@ObservedObject` for passed ViewModels
-- **Example**:
-```swift
-struct TaskListView: View {
-    @StateObject private var viewModel = TaskListViewModel()
     
-    var body: some View {
-        List(viewModel.tasks) { task in
-            TaskRow(task: task)
-        }
-        .onAppear {
-            viewModel.loadTasks()
-        }
+    init(title: String) {
+        self.id = UUID()
+        self.title = title
+        self.isCompleted = false
+        self.createdAt = Date()
     }
 }
 ```
 
 ### ViewModel
-- **Purpose**: Presentation logic and state management
-- **Responsibilities**:
-  - Prepare data for display
-  - Handle user actions
-  - Coordinate with services
-  - Manage view state
-- **Best Practices**:
-  - Conform to `ObservableObject`
-  - Use `@Published` for properties that trigger UI updates
-  - Keep ViewModels testable (no direct UIKit dependencies)
-  - Use `@MainActor` for UI-related ViewModels
-- **Example**:
+Business logic and state management.
+
 ```swift
+// Features/Todo/ViewModels/TodoViewModel.swift
 @MainActor
-class TaskListViewModel: ObservableObject {
-    @Published var tasks: [Task] = []
+class TodoViewModel: ObservableObject {
+    
+    // MARK: - Published Properties
+    
+    @Published var todos: [Todo] = []
     @Published var isLoading = false
     @Published var errorMessage: String?
     
-    private let taskService: TaskService
+    // MARK: - Dependencies
     
-    init(taskService: TaskService = TaskService()) {
-        self.taskService = taskService
+    private let service: TodoService
+    
+    // MARK: - Initialization
+    
+    init(service: TodoService = TodoService()) {
+        self.service = service
     }
     
-    func loadTasks() {
+    // MARK: - Public Methods
+    
+    func loadTodos() async {
         isLoading = true
-        Task {
-            do {
-                tasks = try await taskService.fetchTasks()
-                isLoading = false
-            } catch {
-                errorMessage = error.localizedDescription
-                isLoading = false
+        errorMessage = nil
+        
+        do {
+            todos = try await service.fetchTodos()
+            Logger.shared.info("Loaded \(todos.count) todos")
+        } catch {
+            errorMessage = error.localizedDescription
+            Logger.shared.error("Failed to load todos: \(error)")
+        }
+        
+        isLoading = false
+    }
+    
+    func addTodo(title: String) async {
+        let todo = Todo(title: title)
+        
+        do {
+            try await service.createTodo(todo)
+            todos.append(todo)
+            
+            // Track analytics
+            await AnalyticsManager.shared.trackEvent("todo_created")
+            
+            // Haptic feedback
+            HapticManager.shared.trigger(.success)
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+    
+    func toggleTodo(_ todo: Todo) async {
+        guard let index = todos.firstIndex(where: { $0.id == todo.id }) else { return }
+        
+        todos[index].isCompleted.toggle()
+        
+        do {
+            try await service.updateTodo(todos[index])
+            HapticManager.shared.trigger(.light)
+        } catch {
+            // Revert on error
+            todos[index].isCompleted.toggle()
+            errorMessage = error.localizedDescription
+        }
+    }
+}
+```
+
+### View
+SwiftUI view using the ViewModel.
+
+```swift
+// Features/Todo/Views/TodoView.swift
+struct TodoView: View {
+    
+    @StateObject private var viewModel = TodoViewModel()
+    @State private var newTodoTitle = ""
+    @State private var showToast = false
+    
+    var body: some View {
+        NavigationView {
+            ZStack {
+                if viewModel.isLoading {
+                    LoadingView(text: "Loading todos...")
+                } else if viewModel.todos.isEmpty {
+                    EmptyStateView.emptyList(
+                        title: "No Todos",
+                        message: "Add your first todo to get started",
+                        actionTitle: "Add Todo"
+                    ) {
+                        // Focus on input
+                    }
+                } else {
+                    todoList
+                }
+            }
+            .navigationTitle("Todos")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    addButton
+                }
+            }
+            .toast($showToast, message: "Todo added!", type: .success)
+            .task {
+                await viewModel.loadTodos()
             }
         }
     }
     
-    func addTask(title: String) {
-        let task = Task(id: UUID(), title: title, isCompleted: false, createdAt: Date())
-        tasks.append(task)
-        // Save to service
+    // MARK: - Subviews
+    
+    private var todoList: some View {
+        List {
+            ForEach(viewModel.todos) { todo in
+                TodoRow(todo: todo) {
+                    Task {
+                        await viewModel.toggleTodo(todo)
+                    }
+                }
+            }
+        }
+    }
+    
+    private var addButton: some View {
+        Button(action: { showAddSheet = true }) {
+            Image(systemName: "plus")
+        }
+    }
+}
+
+// MARK: - Todo Row
+
+struct TodoRow: View {
+    let todo: Todo
+    let onToggle: () -> Void
+    
+    var body: some View {
+        HStack {
+            Image(systemName: todo.isCompleted ? "checkmark.circle.fill" : "circle")
+                .foregroundColor(todo.isCompleted ? .appSuccess : .appSecondaryText)
+                .onTapGesture {
+                    onToggle()
+                }
+            
+            VStack(alignment: .leading, spacing: AppSpacing.xxSmall) {
+                Text(todo.title)
+                    .font(.appBody)
+                    .foregroundColor(.appText)
+                    .strikethrough(todo.isCompleted)
+                
+                Text(todo.createdAt.formatted())
+                    .font(.appCaption)
+                    .foregroundColor(.appSecondaryText)
+            }
+        }
+        .padding(.vertical, AppSpacing.xSmall)
     }
 }
 ```
 
 ### Service
-- **Purpose**: Data access and business operations
-- **Responsibilities**:
-  - API calls
-  - Database operations
-  - Data persistence
-  - Business logic
-- **Example**:
+API calls and data operations.
+
 ```swift
-actor TaskService {
-    func fetchTasks() async throws -> [Task] {
-        // Fetch from API or local storage
-        []
+// Features/Todo/Services/TodoService.swift
+class TodoService {
+    
+    private let networkManager = NetworkManager.shared
+    
+    func fetchTodos() async throws -> [Todo] {
+        try await networkManager.request(endpoint: TodoEndpoint.list)
     }
     
-    func saveTask(_ task: Task) async throws {
-        // Save to API or local storage
+    func createTodo(_ todo: Todo) async throws {
+        try await networkManager.request(endpoint: TodoEndpoint.create(todo))
     }
-}
-```
-
-## 🎯 Best Practices
-
-### 1. Separation of Concerns
-- **Models**: Pure data, no UI dependencies
-- **Views**: Pure UI, no business logic
-- **ViewModels**: Bridge between Views and Services
-- **Services**: Data operations, no UI dependencies
-
-### 2. Naming Conventions
-- **Models**: Noun (e.g., `Task`, `User`, `Product`)
-- **Views**: `<Feature>View` (e.g., `TaskListView`, `TaskDetailView`)
-- **ViewModels**: `<Feature>ViewModel` (e.g., `TaskListViewModel`)
-- **Services**: `<Feature>Service` (e.g., `TaskService`, `AuthService`)
-
-### 3. File Organization
-```
-TaskManagement/
-├── Models/
-│   ├── Task.swift
-│   └── TaskCategory.swift
-├── ViewModels/
-│   ├── TaskListViewModel.swift
-│   └── TaskDetailViewModel.swift
-├── Views/
-│   ├── TaskListView.swift
-│   ├── TaskDetailView.swift
-│   └── Components/
-│       ├── TaskRow.swift
-│       └── TaskCard.swift
-└── Services/
-    └── TaskService.swift
-```
-
-### 4. Dependency Injection
-Always inject dependencies to make code testable:
-
-```swift
-class TaskListViewModel: ObservableObject {
-    private let taskService: TaskService
     
-    // Inject service (allows mocking in tests)
-    init(taskService: TaskService = TaskService()) {
-        self.taskService = taskService
+    func updateTodo(_ todo: Todo) async throws {
+        try await networkManager.request(endpoint: TodoEndpoint.update(todo))
+    }
+    
+    func deleteTodo(_ id: UUID) async throws {
+        try await networkManager.request(endpoint: TodoEndpoint.delete(id))
     }
 }
-```
 
-### 5. Error Handling
-Use proper error handling patterns:
+// MARK: - API Endpoints
 
-```swift
-@Published var errorMessage: String?
-@Published var showError = false
-
-func loadData() {
-    Task {
-        do {
-            data = try await service.fetch()
-        } catch {
-            errorMessage = error.localizedDescription
-            showError = true
+enum TodoEndpoint: APIEndpoint {
+    case list
+    case create(Todo)
+    case update(Todo)
+    case delete(UUID)
+    
+    var path: String {
+        switch self {
+        case .list:
+            return "/todos"
+        case .create:
+            return "/todos"
+        case .update(let todo):
+            return "/todos/\(todo.id)"
+        case .delete(let id):
+            return "/todos/\(id)"
+        }
+    }
+    
+    var method: HTTPMethod {
+        switch self {
+        case .list:
+            return .get
+        case .create:
+            return .post
+        case .update:
+            return .put
+        case .delete:
+            return .delete
         }
     }
 }
 ```
 
-### 6. Loading States
-Always show loading states for async operations:
+## 🎨 Using Design System
+
+Always use design system components:
 
 ```swift
-@Published var isLoading = false
+// Colors
+.foregroundColor(.appPrimary)
+.background(.appSecondaryBackground)
 
-func loadData() {
-    isLoading = true
-    defer { isLoading = false }
-    // Fetch data
+// Fonts
+.font(.appTitle)
+.font(.appBody)
+
+// Spacing
+.padding(AppSpacing.medium)
+VStack(spacing: AppSpacing.small) { }
+
+// Components
+AppButton("Save", style: .primary) { }
+AppTextField("Title", text: $title)
+AppCard { /* content */ }
+
+// Modifiers
+.toast($showToast, message: "Success!", type: .success)
+.loading(isLoading)
+.dismissKeyboardOnTap()
+```
+
+## 📊 Analytics Integration
+
+Track important user actions:
+
+```swift
+// In ViewModel
+func performAction() async {
+    // Do action
+    
+    // Track event
+    await AnalyticsManager.shared.trackEvent("action_performed", parameters: [
+        "feature": "todos",
+        "count": todos.count
+    ])
+}
+
+// Add custom events in AnalyticsEvent.swift
+static func todoCreated() -> AnalyticsEvent {
+    AnalyticsEvent(name: "todo_created")
 }
 ```
 
-## 🚀 Quick Start Example
+## 🎯 Haptic Feedback
 
-Here's a complete minimal feature example:
+Add haptics for better UX:
 
-### 1. Create the Model
 ```swift
-// Features/Counter/Models/CounterModel.swift
-struct CounterModel {
-    var count: Int = 0
-}
+// Success feedback
+HapticManager.shared.trigger(.success)
+
+// Light tap
+HapticManager.shared.trigger(.light)
+
+// Selection change
+HapticManager.shared.trigger(.selection)
 ```
 
-### 2. Create the ViewModel
+## 💾 Data Persistence
+
+### UserDefaults
 ```swift
-// Features/Counter/ViewModels/CounterViewModel.swift
+// Simple preferences
+AppStorage.hasSeenTutorial = true
+```
+
+### Keychain
+```swift
+// Sensitive data
+try? KeychainManager.shared.save("api_token", value: token)
+```
+
+### FileStorage
+```swift
+// Files and images
+try? await FileStorageManager.shared.save(todos, filename: "todos.json")
+```
+
+## 🧪 Testing
+
+Create tests for ViewModels:
+
+```swift
 @MainActor
-class CounterViewModel: ObservableObject {
-    @Published var model = CounterModel()
+class TodoViewModelTests: XCTestCase {
     
-    func increment() {
-        model.count += 1
+    var viewModel: TodoViewModel!
+    var mockService: MockTodoService!
+    
+    override func setUp() {
+        mockService = MockTodoService()
+        viewModel = TodoViewModel(service: mockService)
     }
     
-    func decrement() {
-        model.count -= 1
-    }
-    
-    func reset() {
-        model.count = 0
-    }
-}
-```
-
-### 3. Create the View
-```swift
-// Features/Counter/Views/CounterView.swift
-struct CounterView: View {
-    @StateObject private var viewModel = CounterViewModel()
-    
-    var body: some View {
-        VStack(spacing: 20) {
-            Text("\(viewModel.model.count)")
-                .font(.largeTitle)
-            
-            HStack(spacing: 20) {
-                Button("−") { viewModel.decrement() }
-                Button("Reset") { viewModel.reset() }
-                Button("+") { viewModel.increment() }
-            }
-        }
+    func testLoadTodos() async {
+        await viewModel.loadTodos()
+        XCTAssertEqual(viewModel.todos.count, 2)
     }
 }
 ```
 
-## 📚 Additional Resources
+## ✅ Checklist for New Features
 
-- [Apple's SwiftUI Documentation](https://developer.apple.com/documentation/swiftui/)
-- [MVVM Pattern in SwiftUI](https://www.hackingwithswift.com/books/ios-swiftui/introducing-mvvm-into-your-swiftui-project)
-- [Swift Concurrency](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html)
+- [ ] Create feature folder in `Features/`
+- [ ] Define models
+- [ ] Create service for API calls
+- [ ] Implement ViewModel with business logic
+- [ ] Build View using design system
+- [ ] Add analytics tracking
+- [ ] Add haptic feedback
+- [ ] Handle loading and error states
+- [ ] Add to navigation (if needed)
+- [ ] Test on device
+- [ ] Write unit tests (optional)
 
-## 💡 Tips
+## 💡 Best Practices
 
-1. **Start Simple**: Begin with a minimal feature and expand as needed
-2. **Test Early**: Write unit tests for ViewModels and Services
-3. **Reuse Components**: Put reusable UI components in `UI/Components/`
-4. **Stay Consistent**: Follow the same patterns across all features
-5. **Document Complex Logic**: Add comments for non-obvious code
+1. **Keep ViewModels focused** - One feature per ViewModel
+2. **Use design system** - Don't create custom colors/fonts
+3. **Handle errors** - Always show user-friendly errors
+4. **Track analytics** - Track key user actions
+5. **Add haptics** - Enhance interactions
+6. **Test on device** - Simulator isn't enough
+7. **Follow MVVM** - Keep Views simple, logic in ViewModels
+
+## 🚀 Example Features
+
+### Simple Feature (No API)
+- Settings toggle
+- Local data list
+- Utility screen
+
+### Medium Feature (With API)
+- User profile
+- Content feed
+- Search
+
+### Complex Feature
+- Chat system
+- Social features
+- Real-time updates
 
 ---
 
-**Ready to build?** Create your first feature directory and start coding! 🎉
+**Ready to build?** Start with a simple feature and grow from there!
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for more details on patterns and structure.

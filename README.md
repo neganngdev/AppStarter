@@ -1,240 +1,234 @@
-# 🚀 AppStarter - iOS App Template
+# AppStarter Template
 
-A production-ready iOS app template designed for indie developers who want to ship niche apps quickly. Clone this template, customize it, and launch your app in 3-5 days.
+**One-week iOS app starter template for indie developers.**
 
-## ✨ Features
+Build and ship iOS apps faster with this production-ready template featuring onboarding, subscriptions, analytics, and a complete design system.
 
-- **🏗️ Clean Architecture**: MVVM pattern with clear separation of concerns
-- **⚙️ Centralized Configuration**: Easy customization through `AppConfig.swift`
-- **🌍 Environment Management**: Development, staging, and production configurations
-- **🎨 Design System Ready**: Organized UI structure for consistent design
-- **📦 Modular Structure**: Feature-based organization for scalability
-- **🔧 Production Ready**: Includes analytics, monetization, and crash reporting setup
-- **📱 iOS 16.0+**: Modern SwiftUI and Swift 5.9+ features
+## 🎯 What's Included
+
+### Core Systems
+- ✅ **App Coordinator** - Smart navigation flow with deep linking
+- ✅ **Configuration** - Environment-based settings (Debug/Release)
+- ✅ **Extensions** - String, Date, Color, View, Collection utilities
+- ✅ **Storage** - UserDefaults, Keychain, FileStorage managers
+- ✅ **Networking** - Type-safe API client with async/await
+- ✅ **Analytics** - Multi-provider abstraction (Firebase, Mixpanel ready)
+- ✅ **Monetization** - RevenueCat subscription wrapper
+
+### UI & UX
+- ✅ **Design System** - Colors, fonts, spacing, radius, shadows
+- ✅ **UI Components** - Buttons, text fields, cards, loading, errors
+- ✅ **Onboarding** - Beautiful onboarding flow with coordinator
+- ✅ **Paywall** - Conversion-optimized subscription screen
+- ✅ **Settings** - Complete settings screen with all common options
+- ✅ **Main App** - Tab-based navigation structure
+
+### Utilities
+- ✅ **View Modifiers** - Toast, loading, keyboard handling, conditionals
+- ✅ **Haptic Feedback** - Easy-to-use haptic manager
+- ✅ **Logger** - Debug/production logging with os.Logger
+- ✅ **App Review** - Smart review request timing
+
+## 🚀 Quick Start
+
+### 1. Clone or Download
+```bash
+git clone https://github.com/neganngdev/AppStarter.git MyNewApp
+cd MyNewApp
+rm -rf .git  # Remove template git history
+git init     # Start fresh
+```
+
+### 2. Customize Configuration
+Open `Configuration/AppConfig.swift` and update:
+```swift
+static let appName = "Your App Name"
+static let bundleIdentifier = "com.yourcompany.yourapp"
+static let supportEmail = "support@yourapp.com"
+// ... etc
+```
+
+### 3. Update Project Settings
+- Open in Xcode
+- Change bundle identifier
+- Update app icon (Assets.xcassets)
+- Update app name in Info.plist
+
+### 4. Configure Services (Optional)
+- Add RevenueCat API key for subscriptions
+- Add Firebase/Mixpanel for analytics
+- Configure deep link URL scheme
+
+### 5. Build Your Features
+Add your features in `Features/` folder following MVVM pattern.
+
+See [CUSTOMIZATION_GUIDE.md](CUSTOMIZATION_GUIDE.md) for detailed steps.
 
 ## 📁 Project Structure
 
 ```
 AppStarter/
-├── App/                          # App entry point and lifecycle
-│   └── AppStarterApp.swift       # Main app file with initialization
-├── Configuration/                # Centralized app configuration
-│   ├── AppConfig.swift          # App settings and customization
-│   └── Environment.swift        # Environment-specific configs
-├── Core/                        # Shared utilities and services
-│   ├── Extensions/              # Swift extensions
-│   ├── Utilities/               # Helper classes
-│   ├── Storage/                 # Data persistence
-│   ├── Networking/              # API client
-│   ├── Analytics/               # Analytics integration
-│   └── Monetization/            # In-app purchases
-├── UI/                          # User interface layer
-│   ├── DesignSystem/            # Colors, fonts, spacing
-│   ├── Components/              # Reusable UI components
-│   ├── Screens/                 # Common screens (onboarding, settings)
-│   └── Modifiers/               # Custom view modifiers
-├── Features/                    # App-specific features (MVVM)
-│   └── README.md               # Feature development guide
-├── Resources/                   # Assets and media
-│   └── Assets.xcassets         # Images, colors, icons
-└── SupportingFiles/            # Supporting files
-    └── Info.plist              # App metadata
+├── App/
+│   └── AppStarterApp.swift          # App entry point
+├── Configuration/
+│   ├── AppConfig.swift               # App configuration
+│   └── Environment.swift             # Environment settings
+├── Core/
+│   ├── Analytics/                    # Analytics system
+│   ├── Extensions/                   # Swift extensions
+│   ├── Monetization/                 # Subscription system
+│   ├── Networking/                   # API client
+│   ├── Storage/                      # Data persistence
+│   ├── Utilities/                    # Haptics, logger, reviews
+│   ├── AppCoordinator.swift          # Navigation coordinator
+│   ├── AppState.swift                # App state management
+│   └── DeepLinkHandler.swift         # Deep link routing
+├── Features/
+│   └── README.md                     # How to add features
+├── UI/
+│   ├── Components/                   # Reusable UI components
+│   ├── DesignSystem/                 # Design tokens
+│   ├── Modifiers/                    # View modifiers
+│   └── Screens/                      # App screens
+│       ├── Main/                     # Home, tabs, content
+│       ├── Onboarding/               # Onboarding flow
+│       ├── Paywall/                  # Subscription paywall
+│       └── Settings/                 # Settings screen
+└── SupportingFiles/
+    └── Info.plist
 ```
 
-## 🎯 Quick Start
+## ✅ Customization Checklist
 
-### 1. Clone or Duplicate This Template
+### Essential (Required for every app)
+- [ ] Update `AppConfig.swift` with your app details
+- [ ] Change bundle identifier in Xcode
+- [ ] Replace app icon in Assets.xcassets
+- [ ] Update app name in Info.plist
+- [ ] Configure onboarding pages in `OnboardingCoordinator.swift`
+- [ ] Update subscription plans in `SubscriptionPlan.swift`
+- [ ] Add your privacy policy and terms URLs
 
-```bash
-# Clone the template
-git clone <repository-url> MyNewApp
-cd MyNewApp
+### Optional (Based on your needs)
+- [ ] Add RevenueCat API key if using subscriptions
+- [ ] Configure analytics providers (Firebase, Mixpanel)
+- [ ] Customize design system colors/fonts
+- [ ] Add custom deep link URL scheme
+- [ ] Configure app review timing thresholds
+- [ ] Add custom fonts to design system
+- [ ] Update placeholder views with your features
 
-# Remove git history to start fresh
-rm -rf .git
-git init
-```
+See [CUSTOMIZATION_GUIDE.md](CUSTOMIZATION_GUIDE.md) for detailed instructions.
 
-### 2. Customize App Configuration
+## ⏱️ Time Estimate
 
-Open `Configuration/AppConfig.swift` and update:
+Based on building a typical indie app:
 
-```swift
-// CUSTOMIZE: Change these values for each new app
-static let appName = "MyNewApp"
-static let appDisplayName = "My New App"
-static let bundleIDPrefix = "com.yourcompany"
+- **Setup & Customize**: 1-2 hours
+- **Build Features**: 3-4 days
+- **Polish & Test**: 1 day
+- **App Store Prep**: 1 day
 
-// CUSTOMIZE: Define your app's visual identity
-static let primaryColor = Color.blue
-static let accentColor = Color.purple
-
-// CUSTOMIZE: Enable/disable features
-static let hasOnboarding = true
-static let hasSubscription = true
-static let hasAnalytics = true
-
-// CUSTOMIZE: Add your API keys
-static let revenueCatAPIKey = "YOUR_REVENUECAT_KEY_HERE"
-static let analyticsAPIKey = "YOUR_ANALYTICS_KEY_HERE"
-```
-
-### 3. Update Project Settings
-
-1. Open Xcode
-2. Create a new project or update existing:
-   - Product Name: Your app name
-   - Bundle Identifier: Match `AppConfig.bundleID`
-   - Minimum iOS Version: 16.0
-3. Add these source files to your project
-
-### 4. Customize Branding
-
-- Update app icon in `Resources/Assets.xcassets`
-- Customize colors in `AppConfig.swift`
-- Add your app's fonts (if custom fonts are needed)
-
-### 5. Build Your Features
-
-Create your app-specific features in the `Features/` directory. See [Features/README.md](Features/README.md) for detailed guidelines.
-
-## 📝 Customization Checklist
-
-Use this checklist when creating a new app from this template:
-
-### Required Changes
-- [ ] Update `appName` and `appDisplayName` in `AppConfig.swift`
-- [ ] Update `bundleIDPrefix` in `AppConfig.swift`
-- [ ] Set brand colors (`primaryColor`, `accentColor`)
-- [ ] Add app icon to `Assets.xcassets`
-- [ ] Update `supportEmail` and `developerName`
-- [ ] Update privacy policy, terms, and support URLs
-
-### Optional Changes
-- [ ] Configure feature flags (onboarding, subscriptions, etc.)
-- [ ] Add RevenueCat API key (if using subscriptions)
-- [ ] Add analytics API key (if using analytics)
-- [ ] Customize typography settings
-- [ ] Update environment API URLs in `Environment.swift`
-- [ ] Add social media handles
-
-### Before Launch
-- [ ] Test in all environments (dev, staging, production)
-- [ ] Update version and build numbers
-- [ ] Configure App Store Connect
-- [ ] Test subscription flows (if applicable)
-- [ ] Verify analytics tracking
-- [ ] Test crash reporting
-- [ ] Review and update Info.plist
+**Total: ~1 week per app** 🎉
 
 ## 🏗️ Architecture
 
-This template follows the **MVVM (Model-View-ViewModel)** pattern:
+This template follows modern iOS development best practices:
 
-- **Models**: Data structures and business logic
-- **Views**: SwiftUI views (UI layer)
-- **ViewModels**: Presentation logic and state management
-- **Services**: Data access and API calls
+- **MVVM Pattern** - Model-View-ViewModel architecture
+- **Swift Concurrency** - async/await throughout
+- **Protocol-Oriented** - Flexible, testable code
+- **Dependency Injection** - Singleton managers with clear APIs
+- **SwiftUI-First** - Modern declarative UI
 
-See [Features/README.md](Features/README.md) for detailed architecture guidelines and examples.
+See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed architecture overview.
 
-## 🔧 Core Components
+## 💡 Tips & Best Practices
 
-### AppConfig
-Centralized configuration for easy app customization. All app-specific settings in one place.
+### Adding Features
+1. Create folder in `Features/YourFeature/`
+2. Follow MVVM: Models, Views, ViewModels
+3. Use design system components
+4. Track analytics events
+5. Add haptic feedback for interactions
 
-### Environment
-Manages different build configurations (development, staging, production) with environment-specific settings.
+### Design System
+- Always use design tokens (colors, spacing, fonts)
+- Use provided view modifiers for consistency
+- Create reusable components in `UI/Components/`
 
-### Features
-Modular feature organization following MVVM pattern. Each feature is self-contained and testable.
+### Analytics
+- Track key user actions
+- Use type-safe events from `AnalyticsEvent.swift`
+- Add custom events as needed
 
-## 🎨 Design System
+### Subscriptions
+- Test with StoreKit Configuration file
+- Use sandbox for testing
+- Track subscription events in analytics
 
-The template includes a design system structure for consistent UI:
+### Performance
+- Use `Logger` for debugging (auto-disabled in production)
+- Lazy load heavy content
+- Cache network responses when appropriate
 
-- **Colors**: Defined in `AppConfig.swift`
-- **Typography**: Font sizes and styles
-- **Components**: Reusable UI components
-- **Modifiers**: Custom view modifiers
+## 🔧 Common Tasks
 
-## 📦 Dependencies
-
-This template starts with **zero external dependencies** to keep it lightweight. Add dependencies as needed:
-
-### Recommended Packages
-- **RevenueCat**: Subscription management
-- **Firebase Analytics**: User analytics
-- **Sentry/Crashlytics**: Crash reporting
-
-Add via Swift Package Manager in Xcode: File → Add Packages...
-
-## 🧪 Testing
-
-### Unit Tests
-Create unit tests for:
-- ViewModels (business logic)
-- Services (data operations)
-- Models (validation logic)
-
-### UI Tests
-Test critical user flows:
-- Onboarding
-- Main features
-- Subscription flow
-
-## 🚀 Deployment
-
-### Development
-```bash
-# Run in simulator
-⌘ + R in Xcode
+### Change App Colors
+Edit `UI/DesignSystem/AppColors.swift`:
+```swift
+static let appPrimary = Color(hex: "#YOUR_COLOR")
 ```
 
-### Staging
-1. Change build configuration to "Staging"
-2. Build and test on TestFlight
+### Add Onboarding Page
+Edit `OnboardingCoordinator.swift`:
+```swift
+pages = [
+    OnboardingPage(icon: "star.fill", title: "Welcome", description: "..."),
+    // Add more pages
+]
+```
 
-### Production
-1. Update version and build number
-2. Archive and upload to App Store Connect
-3. Submit for review
+### Add Subscription Plan
+Edit `SubscriptionPlan.swift`:
+```swift
+static let samplePlans = [
+    SubscriptionPlan(id: "monthly", name: "Monthly", price: "$9.99", ...)
+]
+```
 
-## 📚 Resources
+### Track Custom Event
+```swift
+await AnalyticsManager.shared.trackEvent("custom_event", parameters: [
+    "key": "value"
+])
+```
 
-- [SwiftUI Documentation](https://developer.apple.com/documentation/swiftui/)
-- [Swift Language Guide](https://docs.swift.org/swift-book/)
-- [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/)
-- [App Store Review Guidelines](https://developer.apple.com/app-store/review/guidelines/)
+### Show Toast Notification
+```swift
+.toast($showToast, message: "Success!", type: .success)
+```
 
-## 💡 Tips for Rapid Development
+## 📚 Documentation
 
-1. **Start with MVP**: Enable only essential features initially
-2. **Reuse Components**: Build a library of reusable UI components
-3. **Test Early**: Write tests as you build features
-4. **Iterate Fast**: Use development environment for quick iterations
-5. **Document as You Go**: Add comments for future reference
+- [Features Guide](Features/README.md) - How to add features
+- [Customization Guide](CUSTOMIZATION_GUIDE.md) - Step-by-step customization
+- [Architecture Overview](ARCHITECTURE.md) - Design decisions and patterns
 
-## 🤝 Contributing
+## 🛠️ Requirements
 
-This is a personal template, but feel free to fork and customize for your needs!
+- iOS 16.0+
+- Xcode 15.0+
+- Swift 5.9+
 
-## 📄 License
+## 📝 License
 
-This template is provided as-is for personal and commercial use.
+This template is provided as-is for indie developers to use in their projects.
+
+## 🙏 Credits
+
+Built with ❤️ for indie iOS developers who want to ship apps faster.
 
 ---
 
-**Ready to build your next app?** Start customizing and ship fast! 🚀
-
-## 🆘 Support
-
-For questions or issues:
-- Email: [Your support email]
-- Website: [Your website]
-
----
-
-**Version**: 1.0.0  
-**Last Updated**: 2026-01-01  
-**Minimum iOS**: 16.0
+**Ready to build your next app?** Start customizing! 🚀
