@@ -1,0 +1,97 @@
+/* 
+  Localizable.strings
+  AppStarter
+
+  Created on 2026-01-02.
+  
+  INSTRUCTIONS:
+  1. Add your localized strings here
+  2. Use NSLocalizedString() in code
+  3. Add more .strings files for other languages
+  
+  ADDING LANGUAGES:
+  1. In Xcode: File > New > File > Strings File
+  2. Name it Localizable.strings
+  3. In File Inspector, click "Localize..."
+  4. Select language
+  5. Add translations
+*/
+
+// MARK: - Common
+
+"app.name" = "AppStarter";
+"ok" = "OK";
+"cancel" = "Cancel";
+"done" = "Done";
+"save" = "Save";
+"delete" = "Delete";
+"edit" = "Edit";
+"close" = "Close";
+"continue" = "Continue";
+"skip" = "Skip";
+"next" = "Next";
+"back" = "Back";
+"yes" = "Yes";
+"no" = "No";
+
+// MARK: - Errors
+
+"error.generic" = "Something went wrong. Please try again.";
+"error.network" = "Network error. Please check your connection.";
+"error.timeout" = "Request timed out. Please try again.";
+"error.noInternet" = "No internet connection.";
+"error.serverError" = "Server error. Please try again later.";
+
+// MARK: - Loading
+
+"loading.default" = "Loading...";
+"loading.pleaseWait" = "Please wait...";
+"loading.savingChanges" = "Saving changes...";
+
+// MARK: - Onboarding
+
+"onboarding.welcome.title" = "Welcome";
+"onboarding.welcome.description" = "Welcome to the app";
+"onboarding.getStarted" = "Get Started";
+
+// MARK: - Subscription
+
+"subscription.premium" = "Premium";
+"subscription.upgrade" = "Upgrade Now";
+"subscription.restore" = "Restore Purchases";
+"subscription.manage" = "Manage Subscription";
+"subscription.active" = "Premium Active";
+"subscription.expired" = "Subscription Expired";
+
+// MARK: - Settings
+
+"settings.title" = "Settings";
+"settings.account" = "Account";
+"settings.notifications" = "Notifications";
+"settings.privacy" = "Privacy Policy";
+"settings.terms" = "Terms of Service";
+"settings.support" = "Contact Support";
+"settings.rate" = "Rate App";
+"settings.share" = "Share App";
+"settings.version" = "Version";
+"settings.logout" = "Log Out";
+
+// MARK: - Alerts
+
+"alert.success" = "Success";
+"alert.error" = "Error";
+"alert.warning" = "Warning";
+"alert.info" = "Info";
+
+// MARK: - Empty States
+
+"emptyState.noItems" = "No items";
+"emptyState.noResults" = "No results found";
+"emptyState.noConnection" = "No connection";
+
+// MARK: - Add your app-specific strings below
+
+/* Example:
+"feature.title" = "Feature Title";
+"feature.description" = "Feature description";
+*/

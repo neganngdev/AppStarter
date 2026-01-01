@@ -2,31 +2,31 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<!-- CUSTOMIZE: Update these values for your app -->
-	
-	<!-- App Display Name -->
+	<!-- App Information -->
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>$(PRODUCT_NAME)</string>
-	
-	<!-- Bundle Identifier -->
+	<string>AppStarter</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	
-	<!-- Bundle Name -->
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
-	
-	<!-- Bundle Version -->
+	<key>CFBundlePackageType</key>
+	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0.0</string>
-	
-	<!-- Build Number -->
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	
-	<!-- Minimum iOS Version -->
-	<key>MinimumOSVersion</key>
-	<string>16.0</string>
+	<!-- Required Device Capabilities -->
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>arm64</string>
+	</array>
 	
 	<!-- Supported Interface Orientations (iPhone) -->
 	<key>UISupportedInterfaceOrientations</key>
@@ -47,94 +47,154 @@
 	
 	<!-- Launch Screen -->
 	<key>UILaunchScreen</key>
-	<dict>
-		<key>UIImageName</key>
-		<string>LaunchImage</string>
-	</dict>
+	<dict/>
 	
 	<!-- App Uses Non-Exempt Encryption -->
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	
-	<!-- CUSTOMIZE: Add required permissions below -->
+	<!-- URL Schemes for Deep Linking -->
+	<!-- CUSTOMIZE: Change 'appstarter' to your app's URL scheme -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>appstarter</string>
+			</array>
+			<key>CFBundleURLName</key>
+			<string>com.yourcompany.appstarter</string>
+		</dict>
+	</array>
 	
-	<!-- Example: Camera Usage -->
+	<!-- Privacy - Camera Usage Description -->
+	<!-- UNCOMMENT if your app uses camera -->
 	<!--
 	<key>NSCameraUsageDescription</key>
 	<string>We need access to your camera to take photos.</string>
 	-->
 	
-	<!-- Example: Photo Library Usage -->
+	<!-- Privacy - Photo Library Usage Description -->
+	<!-- UNCOMMENT if your app accesses photo library -->
 	<!--
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>We need access to your photo library to select images.</string>
+	<string>We need access to your photo library to select photos.</string>
 	-->
 	
-	<!-- Example: Location When In Use -->
+	<!-- Privacy - Photo Library Additions Usage Description -->
+	<!-- UNCOMMENT if your app saves to photo library -->
+	<!--
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>We need permission to save photos to your library.</string>
+	-->
+	
+	<!-- Privacy - Location When In Use Usage Description -->
+	<!-- UNCOMMENT if your app uses location -->
 	<!--
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need your location to provide location-based features.</string>
 	-->
 	
-	<!-- Example: Notifications -->
+	<!-- Privacy - Location Always Usage Description -->
+	<!-- UNCOMMENT if your app needs background location -->
 	<!--
-	<key>NSUserNotificationsUsageDescription</key>
-	<string>We'd like to send you notifications about updates.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We need your location even when the app is in the background.</string>
 	-->
 	
-	<!-- Example: Tracking (iOS 14.5+) -->
+	<!-- Privacy - Microphone Usage Description -->
+	<!-- UNCOMMENT if your app uses microphone -->
 	<!--
-	<key>NSUserTrackingUsageDescription</key>
-	<string>This identifier will be used to deliver personalized ads to you.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need access to your microphone to record audio.</string>
+	-->
+	
+	<!-- Privacy - Contacts Usage Description -->
+	<!-- UNCOMMENT if your app accesses contacts -->
+	<!--
+	<key>NSContactsUsageDescription</key>
+	<string>We need access to your contacts to help you connect with friends.</string>
+	-->
+	
+	<!-- Privacy - Calendars Usage Description -->
+	<!-- UNCOMMENT if your app accesses calendar -->
+	<!--
+	<key>NSCalendarsUsageDescription</key>
+	<string>We need access to your calendar to schedule events.</string>
+	-->
+	
+	<!-- Privacy - Reminders Usage Description -->
+	<!-- UNCOMMENT if your app accesses reminders -->
+	<!--
+	<key>NSRemindersUsageDescription</key>
+	<string>We need access to your reminders to create tasks.</string>
+	-->
+	
+	<!-- Privacy - Face ID Usage Description -->
+	<!-- UNCOMMENT if your app uses Face ID -->
+	<!--
+	<key>NSFaceIDUsageDescription</key>
+	<string>We use Face ID to securely authenticate you.</string>
+	-->
+	
+	<!-- Privacy - Bluetooth Usage Description -->
+	<!-- UNCOMMENT if your app uses Bluetooth -->
+	<!--
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>We need Bluetooth access to connect to devices.</string>
+	-->
+	
+	<!-- Privacy - Motion Usage Description -->
+	<!-- UNCOMMENT if your app uses motion data -->
+	<!--
+	<key>NSMotionUsageDescription</key>
+	<string>We use motion data to track your activity.</string>
+	-->
+	
+	<!-- Privacy - Health Share Usage Description -->
+	<!-- UNCOMMENT if your app reads HealthKit data -->
+	<!--
+	<key>NSHealthShareUsageDescription</key>
+	<string>We need access to your health data to provide personalized insights.</string>
+	-->
+	
+	<!-- Privacy - Health Update Usage Description -->
+	<!-- UNCOMMENT if your app writes HealthKit data -->
+	<!--
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>We need permission to save health data.</string>
 	-->
 	
 	<!-- App Transport Security -->
+	<!-- CUSTOMIZE: Remove or modify for production -->
+	<!-- This allows HTTP connections - remove for production apps -->
+	<!--
 	<key>NSAppTransportSecurity</key>
 	<dict>
-		<!-- CUSTOMIZE: Set to NO in production -->
 		<key>NSAllowsArbitraryLoads</key>
-		<false/>
+		<true/>
 	</dict>
+	-->
 	
-	<!-- Supported Device Families -->
-	<!-- 1 = iPhone, 2 = iPad -->
-	<key>UIDeviceFamily</key>
+	<!-- Fonts Provided by Application -->
+	<!-- UNCOMMENT and add your custom fonts -->
+	<!--
+	<key>UIAppFonts</key>
 	<array>
-		<integer>1</integer>
-		<integer>2</integer>
+		<string>YourFont-Regular.ttf</string>
+		<string>YourFont-Bold.ttf</string>
 	</array>
+	-->
 	
-	<!-- Required Device Capabilities -->
-	<key>UIRequiredDeviceCapabilities</key>
+	<!-- Background Modes -->
+	<!-- UNCOMMENT if your app needs background capabilities -->
+	<!--
+	<key>UIBackgroundModes</key>
 	<array>
-		<string>arm64</string>
+		<string>fetch</string>
+		<string>remote-notification</string>
 	</array>
+	-->
 	
-	<!-- Status Bar Style -->
-	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleDefault</string>
-	
-	<!-- View Controller-Based Status Bar Appearance -->
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<true/>
-	
-	<!-- Application Scene Manifest (SwiftUI) -->
-	<key>UIApplicationSceneManifest</key>
-	<dict>
-		<key>UIApplicationSupportsMultipleScenes</key>
-		<false/>
-		<key>UISceneConfigurations</key>
-		<dict>
-			<key>UIWindowSceneSessionRoleApplication</key>
-			<array>
-				<dict>
-					<key>UISceneConfigurationName</key>
-					<string>Default Configuration</string>
-					<key>UISceneDelegateClassName</key>
-					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
-				</dict>
-			</array>
-		</dict>
-	</dict>
 </dict>
 </plist>
