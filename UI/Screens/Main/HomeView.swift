@@ -39,7 +39,7 @@ struct HomeView: View {
                 .padding()
             }
             .navigationTitle("Home")
-            .background(.appBackground)
+            .background(Color.appBackground)
             .sheet(isPresented: $showPaywall) {
                 PaywallView(
                     plans: SubscriptionPlan.samplePlans,
@@ -65,20 +65,20 @@ struct HomeView: View {
                 .font(.system(size: 60))
                 .foregroundStyle(
                     LinearGradient(
-                        colors: [.appPrimary, .appAccent],
+                        colors: [Color.appPrimary, Color.appAccent],
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     )
                 )
             
             Text("Welcome to \(AppConfig.appName)")
-                .font(.appLargeTitle)
+                .font(Font.appLargeTitle)
                 .fontWeight(.bold)
                 .multilineTextAlignment(.center)
             
             Text("Your app is ready to customize")
-                .font(.appBody)
-                .foregroundColor(.appSecondaryText)
+                .font(Font.appBody)
+                .foregroundColor(Color.appSecondaryText)
                 .multilineTextAlignment(.center)
         }
         .padding(.top, AppSpacing.large)
@@ -89,22 +89,22 @@ struct HomeView: View {
     private var premiumBadge: some View {
         HStack(spacing: AppSpacing.small) {
             Image(systemName: "crown.fill")
-                .foregroundColor(.appPremium)
+                .foregroundColor(Color.appPremium)
             
             VStack(alignment: .leading, spacing: AppSpacing.xxSmall) {
                 Text("Premium Active")
-                    .font(.appHeadline)
-                    .foregroundColor(.appText)
+                    .font(Font.appHeadline)
+                    .foregroundColor(Color.appText)
                 
                 Text(purchaseManager.subscriptionStatus.detailMessage)
-                    .font(.appCaption)
-                    .foregroundColor(.appSecondaryText)
+                    .font(Font.appCaption)
+                    .foregroundColor(Color.appSecondaryText)
             }
             
             Spacer()
         }
         .padding()
-        .background(.appPremium.opacity(0.1))
+        .background(Color.appPremium.opacity(0.1))
         .cornerRadius(AppRadius.medium)
     }
     
@@ -116,16 +116,16 @@ struct HomeView: View {
                 HStack {
                     Image(systemName: "crown.fill")
                         .font(.title)
-                        .foregroundColor(.appPremium)
+                        .foregroundColor(Color.appPremium)
                     
                     VStack(alignment: .leading, spacing: AppSpacing.xxSmall) {
                         Text("Unlock Premium")
-                            .font(.appHeadline)
-                            .foregroundColor(.appText)
+                            .font(Font.appHeadline)
+                            .foregroundColor(Color.appText)
                         
                         Text("Get unlimited access to all features")
-                            .font(.appCaption)
-                            .foregroundColor(.appSecondaryText)
+                            .font(Font.appCaption)
+                            .foregroundColor(Color.appSecondaryText)
                     }
                     
                     Spacer()
@@ -147,26 +147,26 @@ struct HomeView: View {
                 VStack(alignment: .leading, spacing: AppSpacing.small) {
                     HStack {
                         Image(systemName: "info.circle.fill")
-                            .foregroundColor(.appInfo)
+                            .foregroundColor(Color.appInfo)
                         Text("Getting Started")
-                            .font(.appHeadline)
+                            .font(Font.appHeadline)
                     }
                     
                     Text("This is a placeholder home screen. Replace this with your actual app features.")
-                        .font(.appBody)
-                        .foregroundColor(.appSecondaryText)
+                        .font(Font.appBody)
+                        .foregroundColor(Color.appSecondaryText)
                     
                     Divider()
                         .padding(.vertical, AppSpacing.xSmall)
                     
                     VStack(alignment: .leading, spacing: AppSpacing.xSmall) {
                         Text("Add your features in:")
-                            .font(.appCaption)
-                            .foregroundColor(.appSecondaryText)
+                            .font(Font.appCaption)
+                            .foregroundColor(Color.appSecondaryText)
                         
                         Text("Features/YourFeature/")
-                            .font(.appMono)
-                            .foregroundColor(.appPrimary)
+                            .font(Font.appMono)
+                            .foregroundColor(Color.appPrimary)
                     }
                 }
             }
@@ -174,22 +174,22 @@ struct HomeView: View {
             // Feature Examples
             VStack(spacing: AppSpacing.small) {
                 Text("Example Features")
-                    .font(.appHeadline)
+                    .font(Font.appHeadline)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                FeatureRow(
+                HomeFeatureRow(
                     icon: "list.bullet",
                     title: "Lists & Collections",
                     description: "Display and manage data"
                 )
                 
-                FeatureRow(
+                HomeFeatureRow(
                     icon: "chart.bar.fill",
                     title: "Analytics & Charts",
                     description: "Visualize your data"
                 )
                 
-                FeatureRow(
+                HomeFeatureRow(
                     icon: "person.2.fill",
                     title: "Social Features",
                     description: "Connect with others"
@@ -199,9 +199,10 @@ struct HomeView: View {
     }
 }
 
-// MARK: - Feature Row
+// MARK: - Home Feature Row
 
-private struct FeatureRow: View {
+/// Feature row for home screen with icon, title, and description
+private struct HomeFeatureRow: View {
     let icon: String
     let title: String
     let description: String
@@ -210,30 +211,24 @@ private struct FeatureRow: View {
         HStack(spacing: AppSpacing.medium) {
             Image(systemName: icon)
                 .font(.title2)
-                .foregroundColor(.appPrimary)
-                .frame(width: 40, height: 40)
-                .background(.appPrimary.opacity(0.1))
-                .cornerRadius(AppRadius.small)
+                .foregroundColor(Color.appPrimary)
+                .frame(width: 32, height: 32)
             
             VStack(alignment: .leading, spacing: AppSpacing.xxSmall) {
                 Text(title)
-                    .font(.appBodyEmphasized)
-                    .foregroundColor(.appText)
+                    .font(Font.appBodyEmphasized)
+                    .foregroundColor(Color.appText)
                 
                 Text(description)
-                    .font(.appCaption)
-                    .foregroundColor(.appSecondaryText)
+                    .font(Font.appCaption)
+                    .foregroundColor(Color.appSecondaryText)
             }
             
             Spacer()
-            
-            Image(systemName: "chevron.right")
-                .font(.caption)
-                .foregroundColor(.appTertiaryText)
         }
-        .padding()
-        .background(.appSecondaryBackground)
-        .cornerRadius(AppRadius.medium)
+        .padding(AppSpacing.small)
+        .background(Color.appSecondaryBackground)
+        .cornerRadius(AppRadius.small)
     }
 }
 

@@ -137,10 +137,22 @@ extension View {
 // MARK: - Card Style Modifier
 
 struct CardStyle: ViewModifier {
-    var backgroundColor: Color = .appSecondaryBackground
-    var cornerRadius: CGFloat = AppRadius.card
-    var shadow: AppShadow = .medium
-    var padding: CGFloat = AppSpacing.cardPadding
+    var backgroundColor: Color
+    var cornerRadius: CGFloat
+    var shadow: AppShadow
+    var padding: CGFloat
+    
+    init(
+        backgroundColor: Color? = nil,
+        cornerRadius: CGFloat? = nil,
+        shadow: AppShadow? = nil,
+        padding: CGFloat? = nil
+    ) {
+        self.backgroundColor = backgroundColor ?? AppConfig.secondaryBackgroundColor
+        self.cornerRadius = cornerRadius ?? AppRadius.card
+        self.shadow = shadow ?? .medium
+        self.padding = padding ?? AppSpacing.cardPadding
+    }
     
     func body(content: Content) -> some View {
         content
@@ -161,10 +173,10 @@ extension View {
     ///   - padding: Content padding
     /// - Returns: Modified view
     func cardStyle(
-        backgroundColor: Color = .appSecondaryBackground,
-        cornerRadius: CGFloat = AppRadius.card,
-        shadow: AppShadow = .medium,
-        padding: CGFloat = AppSpacing.cardPadding
+        backgroundColor: Color? = nil,
+        cornerRadius: CGFloat? = nil,
+        shadow: AppShadow? = nil,
+        padding: CGFloat? = nil
     ) -> some View {
         self.modifier(CardStyle(
             backgroundColor: backgroundColor,
@@ -178,16 +190,30 @@ extension View {
 // MARK: - Button Style Modifier
 
 struct ElevatedButtonStyle: ButtonStyle {
-    var backgroundColor: Color = .appPrimary
-    var foregroundColor: Color = .white
-    var cornerRadius: CGFloat = AppRadius.button
-    var shadow: AppShadow = .small
-    var padding: EdgeInsets = EdgeInsets(
-        top: AppSpacing.small,
-        leading: AppSpacing.large,
-        bottom: AppSpacing.small,
-        trailing: AppSpacing.large
-    )
+    var backgroundColor: Color
+    var foregroundColor: Color
+    var cornerRadius: CGFloat
+    var shadow: AppShadow
+    var padding: EdgeInsets
+    
+    init(
+        backgroundColor: Color? = nil,
+        foregroundColor: Color? = nil,
+        cornerRadius: CGFloat? = nil,
+        shadow: AppShadow? = nil,
+        padding: EdgeInsets? = nil
+    ) {
+        self.backgroundColor = backgroundColor ?? AppConfig.primaryColor
+        self.foregroundColor = foregroundColor ?? .white
+        self.cornerRadius = cornerRadius ?? AppRadius.button
+        self.shadow = shadow ?? .small
+        self.padding = padding ?? EdgeInsets(
+            top: AppSpacing.small,
+            leading: AppSpacing.large,
+            bottom: AppSpacing.small,
+            trailing: AppSpacing.large
+        )
+    }
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -209,8 +235,8 @@ extension View {
     ///   - foregroundColor: Button text color
     /// - Returns: Modified view
     func elevatedButtonStyle(
-        backgroundColor: Color = .appPrimary,
-        foregroundColor: Color = .white
+        backgroundColor: Color? = nil,
+        foregroundColor: Color? = nil
     ) -> some View {
         self.buttonStyle(ElevatedButtonStyle(
             backgroundColor: backgroundColor,
@@ -249,9 +275,9 @@ extension View {
  ```swift
  VStack(alignment: .leading, spacing: AppSpacing.small) {
      Text("Card Title")
-         .font(.appHeadline)
+         .font(Font.appHeadline)
      Text("Card description goes here")
-         .font(.appBody)
+         .font(Font.appBody)
  }
  .cardStyle()
  
@@ -260,7 +286,7 @@ extension View {
      Text("Custom Card")
  }
  .cardStyle(
-     backgroundColor: .appPrimary,
+     backgroundColor: Color.appPrimary,
      cornerRadius: AppRadius.large,
      shadow: .large
  )
@@ -274,7 +300,7 @@ extension View {
  
  Button("Secondary") { }
      .elevatedButtonStyle(
-         backgroundColor: .appSecondary,
+         backgroundColor: Color.appSecondary,
          foregroundColor: .white
      )
  ```
@@ -288,7 +314,7 @@ extension View {
          .foregroundColor(.white)
  }
  .frame(width: 56, height: 56)
- .background(.appPrimary)
+ .background(Color.appPrimary)
  .cornerRadius(AppRadius.pill)
  .largeShadow()
  ```
@@ -300,7 +326,7 @@ extension View {
      // Modal content
  }
  .padding()
- .background(.appBackground)
+ .background(Color.appBackground)
  .cornerRadius(AppRadius.modal, corners: [.topLeft, .topRight])
  .modalShadow()
  ```
@@ -314,7 +340,7 @@ extension View {
      Spacer()
  }
  .padding()
- .background(.appSecondaryBackground)
+ .background(Color.appSecondaryBackground)
  .cornerRadius(AppRadius.small)
  .smallShadow()
  ```

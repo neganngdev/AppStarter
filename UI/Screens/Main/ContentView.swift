@@ -41,11 +41,11 @@ struct ContentView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: { showSettings = true }) {
                         Image(systemName: "gear")
-                            .foregroundColor(.appPrimary)
+                            .foregroundColor(Color.appPrimary)
                     }
                 }
             }
-            .background(.appBackground)
+            .background(Color.appBackground)
             .sheet(isPresented: $showSettings) {
                 SettingsView()
             }
@@ -74,19 +74,19 @@ struct ContentView: View {
                 .font(.system(size: 60))
                 .foregroundStyle(
                     LinearGradient(
-                        colors: [.appPrimary, .appAccent],
+                        colors: [Color.appPrimary, Color.appAccent],
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     )
                 )
             
             Text("Welcome!")
-                .font(.appLargeTitle)
+                .font(Font.appLargeTitle)
                 .fontWeight(.bold)
             
             Text("Start building your app features")
-                .font(.appBody)
-                .foregroundColor(.appSecondaryText)
+                .font(Font.appBody)
+                .foregroundColor(Color.appSecondaryText)
                 .multilineTextAlignment(.center)
         }
         .padding(.top, AppSpacing.large)
@@ -100,16 +100,16 @@ struct ContentView: View {
                 // Premium Badge
                 HStack(spacing: AppSpacing.small) {
                     Image(systemName: "checkmark.seal.fill")
-                        .foregroundColor(.appSuccess)
+                        .foregroundColor(Color.appSuccess)
                     
                     Text("Premium Active")
-                        .font(.appHeadline)
-                        .foregroundColor(.appText)
+                        .font(Font.appHeadline)
+                        .foregroundColor(Color.appText)
                     
                     Spacer()
                 }
                 .padding()
-                .background(.appSuccess.opacity(0.1))
+                .background(Color.appSuccess.opacity(0.1))
                 .cornerRadius(AppRadius.medium)
             } else {
                 // Upgrade Card
@@ -117,9 +117,9 @@ struct ContentView: View {
                     VStack(spacing: AppSpacing.medium) {
                         HStack {
                             Image(systemName: "crown.fill")
-                                .foregroundColor(.appPremium)
+                                .foregroundColor(Color.appPremium)
                             Text("Unlock Premium Features")
-                                .font(.appHeadline)
+                                .font(Font.appHeadline)
                             Spacer()
                         }
                         
@@ -140,24 +140,24 @@ struct ContentView: View {
             AppCard(variant: .outlined) {
                 VStack(alignment: .leading, spacing: AppSpacing.small) {
                     Label("Getting Started", systemImage: "lightbulb.fill")
-                        .font(.appHeadline)
-                        .foregroundColor(.appPrimary)
+                        .font(Font.appHeadline)
+                        .foregroundColor(Color.appPrimary)
                     
                     Text("This is a placeholder content view. Replace this with your actual app features.")
-                        .font(.appBody)
-                        .foregroundColor(.appSecondaryText)
+                        .font(Font.appBody)
+                        .foregroundColor(Color.appSecondaryText)
                     
                     Divider()
                         .padding(.vertical, AppSpacing.xSmall)
                     
                     VStack(alignment: .leading, spacing: AppSpacing.xSmall) {
                         Text("Add features in:")
-                            .font(.appCaption)
-                            .foregroundColor(.appSecondaryText)
+                            .font(Font.appCaption)
+                            .foregroundColor(Color.appSecondaryText)
                         
                         Text("Features/YourFeature/")
-                            .font(.appMono)
-                            .foregroundColor(.appPrimary)
+                            .font(Font.appMono)
+                            .foregroundColor(Color.appPrimary)
                     }
                 }
             }
@@ -165,25 +165,25 @@ struct ContentView: View {
             // Quick Actions
             VStack(spacing: AppSpacing.small) {
                 Text("Quick Actions")
-                    .font(.appHeadline)
+                    .font(Font.appHeadline)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 quickActionButton(
                     icon: "plus.circle.fill",
                     title: "Add Feature",
-                    color: .appPrimary
+                    color: Color.appPrimary
                 )
                 
                 quickActionButton(
                     icon: "square.and.arrow.up",
                     title: "Share App",
-                    color: .appAccent
+                    color: Color.appAccent
                 )
                 
                 quickActionButton(
                     icon: "star.fill",
                     title: "Rate App",
-                    color: .appPremium
+                    color: Color.appPremium
                 )
             }
         }
@@ -199,15 +199,15 @@ struct ContentView: View {
                 Image(systemName: icon)
                     .foregroundColor(color)
                 Text(title)
-                    .font(.appBody)
-                    .foregroundColor(.appText)
+                    .font(Font.appBody)
+                    .foregroundColor(Color.appText)
                 Spacer()
                 Image(systemName: "chevron.right")
                     .font(.caption)
-                    .foregroundColor(.appTertiaryText)
+                    .foregroundColor(Color.appTertiaryText)
             }
             .padding()
-            .background(.appSecondaryBackground)
+            .background(Color.appSecondaryBackground)
             .cornerRadius(AppRadius.medium)
         }
         .buttonStyle(.plain)

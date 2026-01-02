@@ -50,8 +50,8 @@ struct OnboardingView: View {
                                 onComplete()
                             }
                         }
-                        .font(.appBody)
-                        .foregroundColor(.appSecondaryText)
+                        .font(Font.appBody)
+                        .foregroundColor(Color.appSecondaryText)
                         .padding()
                     }
                 }
@@ -162,7 +162,7 @@ struct MinimalOnboardingView: View {
             .padding(.horizontal, AppSpacing.large)
             .padding(.bottom, AppSpacing.xLarge)
         }
-        .background(.appBackground)
+        .background(Color.appBackground)
     }
 }
 

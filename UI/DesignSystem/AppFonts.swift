@@ -180,16 +180,16 @@ extension View {
  
  ```swift
  Text("Large Title")
-     .font(.appLargeTitle)
+     .font(Font.appLargeTitle)
  
  Text("Headline")
-     .font(.appHeadline)
+     .font(Font.appHeadline)
  
  Text("Body text")
-     .font(.appBody)
+     .font(Font.appBody)
  
  Text("Caption")
-     .font(.appCaption)
+     .font(Font.appCaption)
  ```
  
  2. Using text styles:
@@ -206,10 +206,10 @@ extension View {
  
  ```swift
  Button("Primary Action") { }
-     .font(.appButton)
+     .font(Font.appButton)
  
  Button("Secondary") { }
-     .font(.appButtonSecondary)
+     .font(Font.appButtonSecondary)
  ```
  
  4. Hierarchy example:
@@ -217,20 +217,20 @@ extension View {
  ```swift
  VStack(alignment: .leading, spacing: 8) {
      Text("Welcome")
-         .font(.appLargeTitle)
-         .foregroundColor(.appText)
+         .font(Font.appLargeTitle)
+         .foregroundColor(Color.appText)
      
      Text("Get started with your journey")
-         .font(.appSubheadline)
-         .foregroundColor(.appSecondaryText)
+         .font(Font.appSubheadline)
+         .foregroundColor(Color.appSecondaryText)
      
      Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit.")
-         .font(.appBody)
-         .foregroundColor(.appText)
+         .font(Font.appBody)
+         .foregroundColor(Color.appText)
      
      Text("Last updated: 2 hours ago")
-         .font(.appCaption)
-         .foregroundColor(.appTertiaryText)
+         .font(Font.appCaption)
+         .foregroundColor(Color.appTertiaryText)
  }
  ```
  
@@ -257,10 +257,10 @@ extension View {
  
  ```swift
  Text("$1,234.56")
-     .font(.appMono)
+     .font(Font.appMono)
  
  Text("let x = 42")
-     .font(.appMonoSmall)
+     .font(Font.appMonoSmall)
  ```
  
  */

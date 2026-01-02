@@ -33,6 +33,7 @@ The template uses MVVM architecture:
 ```
 
 **Benefits:**
+
 - Clear separation of concerns
 - Testable business logic
 - Reactive UI updates with @Published
@@ -41,6 +42,7 @@ The template uses MVVM architecture:
 ## 📐 Project Structure
 
 ### Core Layer
+
 Foundation of the app - reusable across all apps.
 
 ```
@@ -64,6 +66,7 @@ Core/
 - **Protocols**: Flexible, testable abstractions
 
 ### UI Layer
+
 User interface components and screens.
 
 ```
@@ -86,6 +89,7 @@ UI/
 - **Screens**: Complete screen implementations
 
 ### Features Layer
+
 Your app-specific features go here.
 
 ```
@@ -100,6 +104,7 @@ Features/
 ## 🔄 Data Flow
 
 ### 1. User Interaction
+
 ```
 User taps button
     ↓
@@ -111,6 +116,7 @@ View automatically re-renders
 ```
 
 ### 2. Network Request
+
 ```
 ViewModel calls NetworkManager
     ↓
@@ -124,6 +130,7 @@ View updates
 ```
 
 ### 3. Analytics Event
+
 ```
 User action occurs
     ↓
@@ -162,6 +169,7 @@ AppRadius.medium
 ```
 
 **Benefits:**
+
 - Consistent UI
 - Easy theme changes
 - Dark mode support
@@ -193,12 +201,14 @@ class AnalyticsManager {
 ```
 
 **When to use:**
+
 - Analytics
 - Purchase management
 - Logging
 - Haptics
 
 **Benefits:**
+
 - Easy access throughout app
 - Single source of truth
 - Lifecycle management
@@ -217,6 +227,7 @@ class MixpanelAnalyticsProvider: AnalyticsProvider { }
 ```
 
 **Benefits:**
+
 - Swap implementations easily
 - Testable with mocks
 - Multiple providers
@@ -240,6 +251,7 @@ AppCoordinator determines state
 ```
 
 **Benefits:**
+
 - Single source of truth for navigation
 - Easy to modify flow
 - Testable navigation logic
@@ -293,6 +305,7 @@ let users: [User] = try await NetworkManager.shared.request(
 ```
 
 **Benefits:**
+
 - Type-safe requests
 - Automatic JSON decoding
 - Error handling
@@ -314,6 +327,7 @@ AnalyticsManager
 ```
 
 **Benefits:**
+
 - Switch providers easily
 - Multiple providers simultaneously
 - Type-safe events
@@ -334,6 +348,7 @@ App Store
 ```
 
 **Benefits:**
+
 - Simplified API
 - Error handling
 - Subscription status tracking
@@ -342,29 +357,50 @@ App Store
 ## 🎯 Key Design Decisions
 
 ### 1. SwiftUI-First
+
 **Decision**: Use SwiftUI for all UI
 **Rationale**: Modern, declarative, less code
 **Trade-off**: iOS 16+ requirement
+**Compatibility**: Uses iOS 16 compatible `onChange` syntax (single-parameter closure) for broader device support
 
 ### 2. Async/Await
+
 **Decision**: Use Swift concurrency throughout
 **Rationale**: Cleaner async code, better performance
 **Trade-off**: Requires understanding of async/await
 
 ### 3. Protocol-Oriented
+
 **Decision**: Use protocols for abstractions
 **Rationale**: Flexibility, testability
 **Trade-off**: Slightly more code
 
 ### 4. Singleton Managers
+
 **Decision**: Use singletons for managers
 **Rationale**: Easy access, single source of truth
 **Trade-off**: Global state (managed carefully)
 
 ### 5. Token-Based Design
+
 **Decision**: Centralize all design values
 **Rationale**: Consistency, easy theming
 **Trade-off**: Requires discipline to use
+
+### 6. Explicit Type Prefixes
+
+**Decision**: Require explicit `Color.` and `Font.` prefixes in views
+**Rationale**: Avoids Swift type inference ambiguity when properties exist on multiple types
+**Trade-off**: Slightly more verbose syntax
+**Usage**:
+
+```swift
+// ✅ Correct
+Text("Hello").foregroundColor(Color.appPrimary).font(Font.appBody)
+
+// ❌ Wrong - causes compilation errors
+Text("Hello").foregroundColor(.appPrimary).font(.appBody)
+```
 
 ## 🧪 Testing Strategy
 
@@ -409,16 +445,19 @@ Each feature is self-contained and follows MVVM.
 ## 🔒 Security Considerations
 
 ### Sensitive Data
+
 - API keys in environment variables
 - Tokens in Keychain
 - Never commit secrets
 
 ### Network Security
+
 - HTTPS only
 - Certificate pinning (if needed)
 - Request signing (if needed)
 
 ### User Privacy
+
 - Analytics opt-out
 - GDPR compliance
 - Clear privacy policy

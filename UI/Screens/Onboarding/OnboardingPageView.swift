@@ -24,7 +24,7 @@ struct OnboardingPageView: View {
                 .font(.system(size: 100, weight: .light))
                 .foregroundStyle(
                     LinearGradient(
-                        colors: [.appPrimary, .appAccent],
+                        colors: [Color.appPrimary, Color.appAccent],
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     )
@@ -34,14 +34,14 @@ struct OnboardingPageView: View {
             // Text Content
             VStack(spacing: AppSpacing.medium) {
                 Text(page.title)
-                    .font(.appLargeTitle)
+                    .font(Font.appLargeTitle)
                     .fontWeight(.bold)
-                    .foregroundColor(.appText)
+                    .foregroundColor(Color.appText)
                     .multilineTextAlignment(.center)
                 
                 Text(page.description)
-                    .font(.appBody)
-                    .foregroundColor(.appSecondaryText)
+                    .font(Font.appBody)
+                    .foregroundColor(Color.appSecondaryText)
                     .multilineTextAlignment(.center)
                     .lineSpacing(4)
                     .padding(.horizontal, AppSpacing.xLarge)
@@ -51,7 +51,7 @@ struct OnboardingPageView: View {
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(page.backgroundColor ?? .appBackground)
+        .background(page.backgroundColor ?? Color.appBackground)
     }
 }
 
@@ -68,20 +68,20 @@ struct CompactOnboardingPageView: View {
             // Icon
             Image(systemName: page.icon)
                 .font(.system(size: 70, weight: .regular))
-                .foregroundColor(.appPrimary)
+                .foregroundColor(Color.appPrimary)
                 .padding(.bottom, AppSpacing.medium)
             
             // Text Content
             VStack(spacing: AppSpacing.small) {
                 Text(page.title)
-                    .font(.appTitle)
+                    .font(Font.appTitle)
                     .fontWeight(.bold)
-                    .foregroundColor(.appText)
+                    .foregroundColor(Color.appText)
                     .multilineTextAlignment(.center)
                 
                 Text(page.description)
-                    .font(.appCallout)
-                    .foregroundColor(.appSecondaryText)
+                    .font(Font.appCallout)
+                    .foregroundColor(Color.appSecondaryText)
                     .multilineTextAlignment(.center)
                     .lineSpacing(2)
                     .padding(.horizontal, AppSpacing.large)
@@ -90,7 +90,7 @@ struct CompactOnboardingPageView: View {
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(page.backgroundColor ?? .appBackground)
+        .background(page.backgroundColor ?? Color.appBackground)
     }
 }
 
@@ -113,20 +113,20 @@ struct ImageOnboardingPageView: View {
             } else {
                 Image(systemName: page.icon)
                     .font(.system(size: 80))
-                    .foregroundColor(.appPrimary)
+                    .foregroundColor(Color.appPrimary)
             }
             
             // Text Content
             VStack(spacing: AppSpacing.medium) {
                 Text(page.title)
-                    .font(.appTitle)
+                    .font(Font.appTitle)
                     .fontWeight(.bold)
-                    .foregroundColor(.appText)
+                    .foregroundColor(Color.appText)
                     .multilineTextAlignment(.center)
                 
                 Text(page.description)
-                    .font(.appBody)
-                    .foregroundColor(.appSecondaryText)
+                    .font(Font.appBody)
+                    .foregroundColor(Color.appSecondaryText)
                     .multilineTextAlignment(.center)
                     .lineSpacing(4)
                     .padding(.horizontal, AppSpacing.large)
@@ -135,7 +135,7 @@ struct ImageOnboardingPageView: View {
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(page.backgroundColor ?? .appBackground)
+        .background(page.backgroundColor ?? Color.appBackground)
     }
 }
 

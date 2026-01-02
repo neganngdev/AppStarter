@@ -24,13 +24,13 @@ struct LoadingView: View {
     var body: some View {
         VStack(spacing: AppSpacing.medium) {
             ProgressView()
-                .progressViewStyle(CircularProgressViewStyle(tint: .appPrimary))
+                .progressViewStyle(CircularProgressViewStyle(tint: Color.appPrimary))
                 .scaleEffect(style.scale)
             
             if let text = text {
                 Text(text)
                     .font(style.font)
-                    .foregroundColor(.appSecondaryText)
+                    .foregroundColor(Color.appSecondaryText)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -59,11 +59,11 @@ extension LoadingView {
         var font: Font {
             switch self {
             case .small:
-                return .appCaption
+                return Font.appCaption
             case .medium:
-                return .appBody
+                return Font.appBody
             case .large:
-                return .appHeadline
+                return Font.appHeadline
             }
         }
     }
@@ -91,12 +91,12 @@ struct LoadingOverlay: ViewModifier {
                     
                     if let text = text {
                         Text(text)
-                            .font(.appBody)
+                            .font(Font.appBody)
                             .foregroundColor(.white)
                     }
                 }
                 .padding(AppSpacing.large)
-                .background(.appSecondaryBackground)
+                .background(Color.appSecondaryBackground)
                 .cornerRadius(AppRadius.medium)
                 .appShadow(.large)
             }
@@ -127,12 +127,12 @@ struct InlineLoadingView: View {
     var body: some View {
         HStack(spacing: AppSpacing.small) {
             ProgressView()
-                .progressViewStyle(CircularProgressViewStyle(tint: .appPrimary))
+                .progressViewStyle(CircularProgressViewStyle(tint: Color.appPrimary))
             
             if let text = text {
                 Text(text)
-                    .font(.appBody)
-                    .foregroundColor(.appSecondaryText)
+                    .font(Font.appBody)
+                    .foregroundColor(Color.appSecondaryText)
             }
         }
         .padding()
@@ -152,10 +152,10 @@ struct InlineLoadingView: View {
 #Preview("Loading Overlay") {
     VStack {
         Text("Content")
-            .font(.appTitle)
+            .font(Font.appTitle)
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)
-    .background(.appBackground)
+    .background(Color.appBackground)
     .loadingOverlay(isLoading: true, text: "Please wait...")
 }
 

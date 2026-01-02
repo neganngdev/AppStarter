@@ -32,15 +32,15 @@ struct SettingsSection<Content: View>: View {
         } header: {
             if let header = header {
                 Text(header)
-                    .font(.appCaption)
-                    .foregroundColor(.appSecondaryText)
+                    .font(Font.appCaption)
+                    .foregroundColor(Color.appSecondaryText)
                     .textCase(.uppercase)
             }
         } footer: {
             if let footer = footer {
                 Text(footer)
-                    .font(.appCaption)
-                    .foregroundColor(.appTertiaryText)
+                    .font(Font.appCaption)
+                    .foregroundColor(Color.appTertiaryText)
             }
         }
     }

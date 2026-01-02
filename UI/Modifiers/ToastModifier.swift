@@ -27,10 +27,10 @@ enum ToastType {
     
     var color: Color {
         switch self {
-        case .success: return .appSuccess
-        case .error: return .appError
-        case .info: return .appInfo
-        case .warning: return .appWarning
+        case .success: return Color.appSuccess
+        case .error: return Color.appError
+        case .info: return Color.appInfo
+        case .warning: return Color.appWarning
         }
     }
 }
@@ -47,7 +47,7 @@ struct ToastView: View {
                 .foregroundColor(.white)
             
             Text(message)
-                .font(.appBody)
+                .font(Font.appBody)
                 .foregroundColor(.white)
             
             Spacer()

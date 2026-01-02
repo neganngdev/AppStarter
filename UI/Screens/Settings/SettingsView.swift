@@ -60,16 +60,16 @@ struct SettingsView: View {
             // Subscription Status
             HStack {
                 Image(systemName: purchaseManager.subscriptionStatus.isActive ? "checkmark.circle.fill" : "circle")
-                    .foregroundColor(purchaseManager.subscriptionStatus.isActive ? .appSuccess : .appSecondaryText)
+                    .foregroundColor(purchaseManager.subscriptionStatus.isActive ? Color.appSuccess : Color.appSecondaryText)
                 
                 VStack(alignment: .leading, spacing: AppSpacing.xxSmall) {
                     Text("Status")
-                        .font(.appBody)
-                        .foregroundColor(.appText)
+                        .font(Font.appBody)
+                        .foregroundColor(Color.appText)
                     
                     Text(purchaseManager.subscriptionStatus.description)
-                        .font(.appCaption)
-                        .foregroundColor(.appSecondaryText)
+                        .font(Font.appCaption)
+                        .foregroundColor(Color.appSecondaryText)
                 }
                 
                 Spacer()
@@ -79,7 +79,7 @@ struct SettingsView: View {
             // Restore Purchases
             TappableSettingsRow(
                 icon: "arrow.clockwise",
-                iconColor: .appPrimary,
+                iconColor: Color.appPrimary,
                 title: "Restore Purchases"
             ) {
                 restorePurchases()
@@ -89,7 +89,7 @@ struct SettingsView: View {
             if purchaseManager.subscriptionStatus.isActive {
                 TappableSettingsRow(
                     icon: "creditcard.fill",
-                    iconColor: .appPrimary,
+                    iconColor: Color.appPrimary,
                     title: "Manage Subscription"
                 ) {
                     openSubscriptionManagement()
@@ -107,11 +107,11 @@ struct SettingsView: View {
         ) {
             SettingsRow(
                 icon: "bell.fill",
-                iconColor: .appAccent,
+                iconColor: Color.appAccent,
                 title: "Notifications",
                 type: .toggle(isOn: $notificationsEnabled)
             )
-            .onChange(of: notificationsEnabled) { oldValue, newValue in
+            .onChange(of: notificationsEnabled) { newValue in
                 // Handle notification toggle
                 Task {
                     await AnalyticsManager.shared.trackEvent("notifications_toggled", parameters: [
@@ -122,11 +122,11 @@ struct SettingsView: View {
             
             SettingsRow(
                 icon: "chart.bar.fill",
-                iconColor: .appInfo,
+                iconColor: Color.appInfo,
                 title: "Analytics",
                 type: .toggle(isOn: $analyticsEnabled)
             )
-            .onChange(of: analyticsEnabled) { oldValue, newValue in
+            .onChange(of: analyticsEnabled) { newValue in
                 Task {
                     if newValue {
                         await AnalyticsManager.shared.enable()
@@ -144,7 +144,7 @@ struct SettingsView: View {
         SettingsSection(header: "Support") {
             TappableSettingsRow(
                 icon: "envelope.fill",
-                iconColor: .appPrimary,
+                iconColor: Color.appPrimary,
                 title: "Contact Support"
             ) {
                 contactSupport()
@@ -152,7 +152,7 @@ struct SettingsView: View {
             
             TappableSettingsRow(
                 icon: "star.fill",
-                iconColor: .appPremium,
+                iconColor: Color.appPremium,
                 title: "Rate App"
             ) {
                 rateApp()
@@ -160,7 +160,7 @@ struct SettingsView: View {
             
             TappableSettingsRow(
                 icon: "square.and.arrow.up",
-                iconColor: .appAccent,
+                iconColor: Color.appAccent,
                 title: "Share App"
             ) {
                 shareApp()
@@ -174,18 +174,18 @@ struct SettingsView: View {
         SettingsSection(header: "Legal") {
             TappableSettingsRow(
                 icon: "doc.text.fill",
-                iconColor: .appSecondaryText,
+                iconColor: Color.appSecondaryText,
                 title: "Privacy Policy"
             ) {
-                openURL(AppConfig.privacyPolicyURL)
+                UIApplication.shared.open(AppConfig.privacyPolicyURL)
             }
             
             TappableSettingsRow(
                 icon: "doc.text.fill",
-                iconColor: .appSecondaryText,
+                iconColor: Color.appSecondaryText,
                 title: "Terms of Service"
             ) {
-                openURL(AppConfig.termsOfServiceURL)
+                UIApplication.shared.open(AppConfig.termsOfServiceURL)
             }
         }
     }
@@ -199,21 +199,21 @@ struct SettingsView: View {
         ) {
             SettingsRow(
                 icon: "info.circle.fill",
-                iconColor: .appInfo,
+                iconColor: Color.appInfo,
                 title: "Version",
                 type: .info(value: AppConfig.version)
             )
             
             SettingsRow(
                 icon: "number",
-                iconColor: .appSecondaryText,
+                iconColor: Color.appSecondaryText,
                 title: "Build",
                 type: .info(value: AppConfig.buildNumber)
             )
             
             TappableSettingsRow(
                 icon: "heart.fill",
-                iconColor: .appError,
+                iconColor: Color.appError,
                 title: "Credits"
             ) {
                 // Show credits

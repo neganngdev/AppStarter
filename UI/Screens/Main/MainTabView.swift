@@ -42,14 +42,14 @@ struct MainTabView: View {
                 }
                 .tag(1)
         }
-        .accentColor(.appPrimary)
+        .accentColor(Color.appPrimary)
         .onAppear {
             // Track tab view shown
             Task {
                 await AnalyticsManager.shared.trackEvent("main_tab_view_shown")
             }
         }
-        .onChange(of: selectedTab) { oldValue, newValue in
+        .onChange(of: selectedTab) { newValue in
             // Track tab changes
             let tabName = tabName(for: newValue)
             Task {
@@ -87,7 +87,7 @@ struct SimplifiedTabView: View {
                     Label("Settings", systemImage: "gear")
                 }
         }
-        .accentColor(.appPrimary)
+        .accentColor(Color.appPrimary)
     }
 }
 
@@ -118,7 +118,7 @@ struct ExtendedTabView: View {
                     Label("Settings", systemImage: "gear")
                 }
         }
-        .accentColor(.appPrimary)
+        .accentColor(Color.appPrimary)
     }
 }
 
@@ -136,15 +136,15 @@ struct PlaceholderView: View {
                 
                 Image(systemName: icon)
                     .font(.system(size: 60))
-                    .foregroundColor(.appSecondaryText)
+                    .foregroundColor(Color.appSecondaryText)
                 
                 Text(title)
-                    .font(.appTitle)
+                    .font(Font.appTitle)
                     .fontWeight(.bold)
                 
                 Text("Add your content here")
-                    .font(.appBody)
-                    .foregroundColor(.appSecondaryText)
+                    .font(Font.appBody)
+                    .foregroundColor(Color.appSecondaryText)
                 
                 Spacer()
             }

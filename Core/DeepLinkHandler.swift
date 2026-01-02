@@ -90,21 +90,23 @@ class DeepLinkHandler {
         }
         
         // Handle based on type
-        switch deepLink {
-        case .premium:
-            coordinator.showPaywall()
-            
-        case .settings:
-            coordinator.navigateToSettings()
-            
-        case .feature(let id):
-            coordinator.navigateToFeature(id: id)
-            
-        case .custom(let path):
-            print("Custom deep link: \(path)")
-            
-        case .unknown:
-            print("Unknown deep link: \(url)")
+        Task { @MainActor in
+            switch deepLink {
+            case .premium:
+                coordinator.presentPaywall()
+                
+            case .settings:
+                coordinator.navigateToSettings()
+                
+            case .feature(let id):
+                coordinator.navigateToFeature(id: id)
+                
+            case .custom(let path):
+                print("Custom deep link: \(path)")
+                
+            case .unknown:
+                print("Unknown deep link: \(url)")
+            }
         }
     }
 }

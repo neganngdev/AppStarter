@@ -131,6 +131,107 @@ extension Color {
         })
     }
     
+    // MARK: - App Colors
+    
+    /// Primary brand color
+    static let appPrimary = Color(hex: "#007AFF")
+    
+    /// Secondary brand color
+    static let appSecondary = Color(hex: "#5856D6")
+    
+    /// Accent color for highlights and CTAs
+    static let appAccent = Color(hex: "#5856D6")
+    
+    /// Primary background color
+    static let appBackground = Color(uiColor: .systemBackground)
+    
+    /// Secondary background color
+    static let appSecondaryBackground = Color(uiColor: .secondarySystemBackground)
+    
+    /// Tertiary background color
+    static let appTertiaryBackground = Color(uiColor: .tertiarySystemBackground)
+    
+    /// Grouped background
+    static let appGroupedBackground = Color(uiColor: .systemGroupedBackground)
+    
+    /// Primary text color
+    static let appText = Color(uiColor: .label)
+    
+    /// Secondary text color
+    static let appSecondaryText = Color(uiColor: .secondaryLabel)
+    
+    /// Tertiary text color
+    static let appTertiaryText = Color(uiColor: .tertiaryLabel)
+    
+    /// Disabled text color
+    static let appDisabledText = Color(uiColor: .quaternaryLabel)
+    
+    /// Placeholder text color
+    static let appPlaceholder = Color(uiColor: .placeholderText)
+    
+    /// Success color (green)
+    static let appSuccess: Color = Color.dynamic(
+        light: Color(hex: "#34C759"),
+        dark: Color(hex: "#30D158")
+    )
+    
+    /// Warning color (orange/yellow)
+    static let appWarning: Color = Color.dynamic(
+        light: Color(hex: "#FF9500"),
+        dark: Color(hex: "#FF9F0A")
+    )
+    
+    /// Error/destructive color (red)
+    static let appError: Color = Color.dynamic(
+        light: Color(hex: "#FF3B30"),
+        dark: Color(hex: "#FF453A")
+    )
+    
+    /// Info color (blue)
+    static let appInfo: Color = Color.dynamic(
+        light: Color(hex: "#007AFF"),
+        dark: Color(hex: "#0A84FF")
+    )
+    
+    /// Border color
+    static let appBorder = Color(uiColor: .separator)
+    
+    /// Separator color
+    static let appSeparator = Color(uiColor: .separator)
+    
+    /// Fill color
+    static let appFill = Color(uiColor: .systemFill)
+    
+    /// Secondary fill color
+    static let appSecondaryFill = Color(uiColor: .secondarySystemFill)
+    
+    /// Tertiary fill color
+    static let appTertiaryFill = Color(uiColor: .tertiarySystemFill)
+    
+    /// Overlay for modals
+    static let appOverlay = Color.black.opacity(0.4)
+    
+    /// Scrim for dimming background
+    static let appScrim = Color.black.opacity(0.3)
+    
+    /// Link color
+    static let appLink = Color.appInfo
+    
+    /// Destructive action color
+    static let appDestructive = Color.appError
+    
+    /// Premium/gold color
+    static let appPremium: Color = Color.dynamic(
+        light: Color(hex: "#FFD700"),
+        dark: Color(hex: "#FFC700")
+    )
+    
+    /// Verified badge color
+    static let appVerified: Color = Color.dynamic(
+        light: Color(hex: "#1DA1F2"),
+        dark: Color(hex: "#1DA1F2")
+    )
+    
     // MARK: - Color Manipulation
     
     /// Lighten color by percentage
@@ -181,33 +282,6 @@ extension Color {
     /// ```
     func withOpacity(_ opacity: Double) -> Color {
         self.opacity(opacity)
-    }
-    
-    // MARK: - Common Color Palette
-    
-    /// App-specific colors from AppConfig
-    static var appPrimary: Color {
-        AppConfig.primaryColor
-    }
-    
-    static var appAccent: Color {
-        AppConfig.accentColor
-    }
-    
-    static var appBackground: Color {
-        AppConfig.backgroundColor
-    }
-    
-    static var appSecondaryBackground: Color {
-        AppConfig.secondaryBackgroundColor
-    }
-    
-    static var appText: Color {
-        AppConfig.textColor
-    }
-    
-    static var appSecondaryText: Color {
-        AppConfig.secondaryTextColor
     }
     
     // MARK: - Semantic Colors

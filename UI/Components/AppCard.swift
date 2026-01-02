@@ -60,7 +60,7 @@ extension AppCard {
         var backgroundColor: Color {
             switch self {
             case .flat, .elevated:
-                return .appSecondaryBackground
+                return Color.appSecondaryBackground
             case .outlined:
                 return .clear
             }
@@ -69,7 +69,7 @@ extension AppCard {
         var borderColor: Color {
             switch self {
             case .outlined:
-                return .appBorder
+                return Color.appBorder
             default:
                 return .clear
             }
@@ -122,35 +122,35 @@ extension AppCard {
         AppCard(variant: .flat) {
             VStack(alignment: .leading, spacing: AppSpacing.xSmall) {
                 Text("Flat Card")
-                    .font(.appHeadline)
+                    .font(Font.appHeadline)
                 Text("No shadow, solid background")
-                    .font(.appBody)
-                    .foregroundColor(.appSecondaryText)
+                    .font(.system(size: 17))
+                    .foregroundColor(Color.appSecondaryText)
             }
         }
         
         AppCard(variant: .elevated) {
             VStack(alignment: .leading, spacing: AppSpacing.xSmall) {
                 Text("Elevated Card")
-                    .font(.appHeadline)
+                    .font(Font.appHeadline)
                 Text("With shadow for depth")
-                    .font(.appBody)
-                    .foregroundColor(.appSecondaryText)
+                    .font(Font.appBody)
+                    .foregroundColor(Color.appSecondaryText)
             }
         }
         
         AppCard(variant: .outlined) {
             VStack(alignment: .leading, spacing: AppSpacing.xSmall) {
                 Text("Outlined Card")
-                    .font(.appHeadline)
+                    .font(Font.appHeadline)
                 Text("Border with no background")
-                    .font(.appBody)
-                    .foregroundColor(.appSecondaryText)
+                    .font(Font.appBody)
+                    .foregroundColor(Color.appSecondaryText)
             }
         }
     }
     .padding()
-    .background(.appBackground)
+    .background(Color.appBackground)
 }
 
 #Preview("Card Content") {
@@ -158,17 +158,17 @@ extension AppCard {
         VStack(alignment: .leading, spacing: AppSpacing.small) {
             HStack {
                 Image(systemName: "star.fill")
-                    .foregroundColor(.appPrimary)
+                    .foregroundColor(Color.appPrimary)
                 Text("Premium Feature")
-                    .font(.appHeadline)
+                    .font(Font.appHeadline)
                 Spacer()
                 Image(systemName: "chevron.right")
-                    .foregroundColor(.appSecondaryText)
+                    .foregroundColor(Color.appSecondaryText)
             }
             
             Text("Unlock all premium features with a subscription")
-                .font(.appBody)
-                .foregroundColor(.appSecondaryText)
+                .font(Font.appBody)
+                .foregroundColor(Color.appSecondaryText)
             
             AppButton("Upgrade Now", style: .primary, size: .large) { }
         }

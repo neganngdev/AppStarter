@@ -9,15 +9,6 @@
 import Foundation
 import os.log
 
-// MARK: - Log Level
-
-enum LogLevel: String {
-    case debug = "🔍 DEBUG"
-    case info = "ℹ️ INFO"
-    case warning = "⚠️ WARNING"
-    case error = "❌ ERROR"
-}
-
 // MARK: - Logger
 
 /// Simple logging wrapper using os.Logger
@@ -122,6 +113,8 @@ class Logger {
         let logMessage = "\(level.rawValue) [\(fileName):\(line)] \(function) - \(message)"
         
         switch level {
+        case .verbose:
+            logger.debug("\(logMessage)")
         case .debug:
             logger.debug("\(logMessage)")
         case .info:
@@ -130,6 +123,8 @@ class Logger {
             logger.warning("\(logMessage)")
         case .error:
             logger.error("\(logMessage)")
+        case .none:
+            break
         }
         
         // Also print to console in debug builds

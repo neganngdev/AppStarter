@@ -16,7 +16,10 @@ struct AppStarterApp: App {
     // MARK: - State
     
     /// App state observer for lifecycle events
-    @Environment(\.scenePhase) private var scenePhase
+    @SwiftUI.Environment(\.scenePhase) private var scenePhase
+    
+    /// App coordinator for navigation
+    @StateObject private var coordinator = AppCoordinator()
     
     // MARK: - Initialization
     
@@ -28,13 +31,13 @@ struct AppStarterApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            coordinator.rootView
                 .onAppear {
                     handleAppLaunch()
                 }
         }
-        .onChange(of: scenePhase) { oldPhase, newPhase in
-            handleScenePhaseChange(from: oldPhase, to: newPhase)
+        .onChange(of: scenePhase) { newPhase in
+            handleScenePhaseChange(to: newPhase)
         }
     }
     
@@ -87,7 +90,7 @@ struct AppStarterApp: App {
     }
     
     /// Handle scene phase changes
-    private func handleScenePhaseChange(from oldPhase: ScenePhase, to newPhase: ScenePhase) {
+    private func handleScenePhaseChange(to newPhase: ScenePhase) {
         switch newPhase {
         case .active:
             handleAppBecameActive()
@@ -191,76 +194,4 @@ struct AppStarterApp: App {
             print("ℹ️ [AppStarterApp] \(message)")
         }
     }
-}
-
-// MARK: - Content View
-
-/// Root content view
-/// CUSTOMIZE: Replace this with your app's main view
-struct ContentView: View {
-    var body: some View {
-        NavigationStack {
-            VStack(spacing: 20) {
-                Image(systemName: "star.fill")
-                    .font(.system(size: 60))
-                    .foregroundStyle(AppConfig.primaryColor)
-                
-                Text("Welcome to \(AppConfig.appDisplayName)")
-                    .font(.title)
-                    .fontWeight(.bold)
-                
-                Text("Your app starter template is ready!")
-                    .font(.body)
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.center)
-                
-                Spacer()
-                    .frame(height: 40)
-                
-                VStack(alignment: .leading, spacing: 12) {
-                    InfoRow(title: "Environment", value: Environment.current.name)
-                    InfoRow(title: "Version", value: AppConfig.fullVersionString)
-                    InfoRow(title: "Bundle ID", value: AppConfig.bundleID)
-                }
-                .padding()
-                .background(AppConfig.secondaryBackgroundColor)
-                .cornerRadius(12)
-                
-                Spacer()
-                
-                Text("Start building your app in the Features/ directory")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
-            }
-            .padding()
-            .navigationTitle(AppConfig.appDisplayName)
-        }
-    }
-}
-
-// MARK: - Info Row
-
-/// Simple info row component
-private struct InfoRow: View {
-    let title: String
-    let value: String
-    
-    var body: some View {
-        HStack {
-            Text(title)
-                .fontWeight(.medium)
-            Spacer()
-            Text(value)
-                .foregroundStyle(.secondary)
-        }
-        .font(.subheadline)
-    }
-}
-
-// MARK: - Preview
-
-#Preview {
-    ContentView()
 }

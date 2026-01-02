@@ -1,0 +1,48 @@
+name: AppStarter
+options:
+  bundleIdPrefix: com.indiedev
+  deploymentTarget:
+    iOS: "16.0"
+  developmentLanguage: en
+  organizationName: IndieDevs
+  
+settings:
+  base:
+    PRODUCT_NAME: AppStarter
+    PRODUCT_BUNDLE_IDENTIFIER: com.indiedev.appstarter
+    SWIFT_VERSION: "5.9"
+    IPHONEOS_DEPLOYMENT_TARGET: "16.0"
+    TARGETED_DEVICE_FAMILY: "1,2"
+    INFOPLIST_FILE: SupportingFiles/Info.plist
+    ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    CURRENT_PROJECT_VERSION: "1"
+    MARKETING_VERSION: "1.0.0"
+    GENERATE_INFOPLIST_FILE: NO
+    
+targets:
+  AppStarter:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - App
+      - Configuration
+      - Core
+      - UI
+      - Features
+    resources:
+      - Resources/Assets.xcassets
+      - SupportingFiles/Localizable.strings
+    settings:
+      base:
+        INFOPLIST_FILE: SupportingFiles/Info.plist
+        PRODUCT_BUNDLE_IDENTIFIER: com.indiedev.appstarter
+        DEVELOPMENT_TEAM: ""
+      configs:
+        Debug:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+          SWIFT_OPTIMIZATION_LEVEL: "-Onone"
+          ENABLE_TESTABILITY: YES
+        Release:
+          SWIFT_OPTIMIZATION_LEVEL: "-O"
+          ENABLE_TESTABILITY: NO

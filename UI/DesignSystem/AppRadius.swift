@@ -83,32 +83,6 @@ extension View {
     func pillShape() -> some View {
         self.cornerRadius(AppRadius.pill)
     }
-    
-    /// Apply corner radius to specific corners
-    /// - Parameters:
-    ///   - radius: Corner radius value
-    ///   - corners: Corners to apply radius to
-    /// - Returns: Modified view
-    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
-        clipShape(RoundedCorner(radius: radius, corners: corners))
-    }
-}
-
-// MARK: - Rounded Corner Shape
-
-/// Custom shape for rounding specific corners
-struct RoundedCorner: Shape {
-    var radius: CGFloat = .infinity
-    var corners: UIRectCorner = .allCorners
-    
-    func path(in rect: CGRect) -> Path {
-        let path = UIBezierPath(
-            roundedRect: rect,
-            byRoundingCorners: corners,
-            cornerRadii: CGSize(width: radius, height: radius)
-        )
-        return Path(path.cgPath)
-    }
 }
 
 // MARK: - Usage Examples
@@ -134,14 +108,14 @@ struct RoundedCorner: Shape {
  ```swift
  Button("Primary Action") { }
      .padding()
-     .background(.appPrimary)
+     .background(Color.appPrimary)
      .foregroundColor(.white)
      .buttonCornerRadius()
  
  Button("Pill Button") { }
      .padding(.horizontal, AppSpacing.large)
      .padding(.vertical, AppSpacing.small)
-     .background(.appAccent)
+     .background(Color.appAccent)
      .foregroundColor(.white)
      .pillShape()
  ```
@@ -153,7 +127,7 @@ struct RoundedCorner: Shape {
      Text("Card Content")
  }
  .cardPadding()
- .background(.appSecondaryBackground)
+ .background(Color.appSecondaryBackground)
  .cardCornerRadius()
  ```
  
@@ -176,7 +150,7 @@ struct RoundedCorner: Shape {
  ```swift
  TextField("Email", text: $email)
      .padding()
-     .background(.appSecondaryBackground)
+     .background(Color.appSecondaryBackground)
      .cornerRadius(AppRadius.input)
  ```
  
@@ -184,10 +158,10 @@ struct RoundedCorner: Shape {
  
  ```swift
  Text("New")
-     .font(.appCaption)
+     .font(Font.appCaption)
      .padding(.horizontal, AppSpacing.small)
      .padding(.vertical, AppSpacing.xxSmall)
-     .background(.appPrimary)
+     .background(Color.appPrimary)
      .foregroundColor(.white)
      .cornerRadius(AppRadius.badge)
  ```
@@ -199,7 +173,7 @@ struct RoundedCorner: Shape {
      // Modal content
  }
  .padding()
- .background(.appBackground)
+ .background(Color.appBackground)
  .cornerRadius(AppRadius.modal, corners: [.topLeft, .topRight])
  ```
  
@@ -209,16 +183,16 @@ struct RoundedCorner: Shape {
  VStack(spacing: 0) {
      // Header with top corners rounded
      HeaderView()
-         .background(.appPrimary)
+         .background(Color.appPrimary)
          .cornerRadius(AppRadius.medium, corners: [.topLeft, .topRight])
      
      // Content with no radius
      ContentView()
-         .background(.appBackground)
+         .background(Color.appBackground)
      
      // Footer with bottom corners rounded
      FooterView()
-         .background(.appSecondaryBackground)
+         .background(Color.appSecondaryBackground)
          .cornerRadius(AppRadius.medium, corners: [.bottomLeft, .bottomRight])
  }
  ```

@@ -57,17 +57,17 @@ struct ErrorView: View {
             // Error Icon
             Image(systemName: "exclamationmark.triangle")
                 .font(.system(size: 60))
-                .foregroundColor(.appError)
+                .foregroundColor(Color.appError)
             
             // Error Text
             VStack(spacing: AppSpacing.xSmall) {
                 Text("Something Went Wrong")
-                    .font(.appTitle3)
-                    .foregroundColor(.appText)
+                    .font(Font.appTitle3)
+                    .foregroundColor(Color.appText)
                 
                 Text(errorMessage)
-                    .font(.appBody)
-                    .foregroundColor(.appSecondaryText)
+                    .font(Font.appBody)
+                    .foregroundColor(Color.appSecondaryText)
                     .multilineTextAlignment(.center)
             }
             .padding(.horizontal, AppSpacing.large)
@@ -111,11 +111,11 @@ struct InlineErrorView: View {
     var body: some View {
         HStack(spacing: AppSpacing.small) {
             Image(systemName: "exclamationmark.circle")
-                .foregroundColor(.appError)
+                .foregroundColor(Color.appError)
             
             Text(message)
-                .font(.appBody)
-                .foregroundColor(.appText)
+                .font(Font.appBody)
+                .foregroundColor(Color.appText)
             
             Spacer()
             
@@ -123,12 +123,12 @@ struct InlineErrorView: View {
                 Button("Retry") {
                     retryAction()
                 }
-                .font(.appBodyEmphasized)
-                .foregroundColor(.appPrimary)
+                .font(Font.appBodyEmphasized)
+                .foregroundColor(Color.appPrimary)
             }
         }
         .padding()
-        .background(.appError.opacity(0.1))
+        .background(Color.appError.opacity(0.1))
         .cornerRadius(AppRadius.small)
     }
 }
@@ -150,10 +150,10 @@ struct ErrorBanner: View {
     var body: some View {
         HStack(spacing: AppSpacing.small) {
             Image(systemName: "exclamationmark.triangle.fill")
-                .foregroundColor(.appError)
+                .foregroundColor(Color.appError)
             
             Text(message)
-                .font(.appBody)
+                .font(Font.appBody)
                 .foregroundColor(.white)
             
             Spacer()
@@ -166,7 +166,7 @@ struct ErrorBanner: View {
             }
         }
         .padding()
-        .background(.appError)
+        .background(Color.appError)
         .cornerRadius(AppRadius.small)
         .appShadow(.medium)
     }
@@ -228,9 +228,9 @@ extension View {
         }
         .padding()
         
-        Spacer()
     }
-    .background(.appBackground)
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .background(Color.appBackground)
 }
 
 #Preview("Error Types") {

@@ -72,16 +72,16 @@ struct AppTextField: View {
                 // Icon
                 if let icon = icon {
                     Image(systemName: icon)
-                        .foregroundColor(hasError ? .appError : .appSecondaryText)
+                        .foregroundColor(hasError ? Color.appError : Color.appSecondaryText)
                         .frame(width: 20)
                 }
                 
                 // Text Field
                 TextField(placeholder, text: $text)
-                    .font(.appBody)
-                    .foregroundColor(.appText)
+                    .font(Font.appBody)
+                    .foregroundColor(Color.appText)
                     .focused($isFocused)
-                    .onChange(of: text) { oldValue, newValue in
+                    .onChange(of: text) { newValue in
                         if let maxLength = maxLength, newValue.count > maxLength {
                             text = String(newValue.prefix(maxLength))
                         }
@@ -91,12 +91,12 @@ struct AppTextField: View {
                 if !text.isEmpty {
                     Button(action: { text = "" }) {
                         Image(systemName: "xmark.circle.fill")
-                            .foregroundColor(.appSecondaryText)
+                            .foregroundColor(Color.appSecondaryText)
                     }
                 }
             }
             .padding(AppSpacing.small)
-            .background(.appSecondaryBackground)
+            .background(Color.appSecondaryBackground)
             .cornerRadius(AppRadius.input)
             .overlay(
                 RoundedRectangle(cornerRadius: AppRadius.input)
@@ -107,16 +107,16 @@ struct AppTextField: View {
             HStack {
                 if let errorMessage = errorMessage {
                     Label(errorMessage, systemImage: "exclamationmark.circle")
-                        .font(.appCaption)
-                        .foregroundColor(.appError)
+                        .font(Font.appCaption)
+                        .foregroundColor(Color.appError)
                 }
                 
                 Spacer()
                 
                 if showCharacterCount {
                     Text(characterCount)
-                        .font(.appCaption)
-                        .foregroundColor(.appTertiaryText)
+                        .font(Font.appCaption)
+                        .foregroundColor(Color.appTertiaryText)
                 }
             }
         }
@@ -153,11 +153,11 @@ struct AppSecureField: View {
     
     private var borderColor: Color {
         if hasError {
-            return .appError
+            return Color.appError
         } else if isFocused {
-            return .appPrimary
+            return Color.appPrimary
         } else {
-            return .appBorder
+            return Color.appBorder
         }
     }
     
@@ -167,7 +167,7 @@ struct AppSecureField: View {
                 // Icon
                 if let icon = icon {
                     Image(systemName: icon)
-                        .foregroundColor(hasError ? .appError : .appSecondaryText)
+                        .foregroundColor(hasError ? Color.appError : Color.appSecondaryText)
                         .frame(width: 20)
                 }
                 
@@ -179,18 +179,18 @@ struct AppSecureField: View {
                         TextField(placeholder, text: $text)
                     }
                 }
-                .font(.appBody)
-                .foregroundColor(.appText)
+                .font(Font.appBody)
+                .foregroundColor(Color.appText)
                 .focused($isFocused)
                 
                 // Show/Hide Button
                 Button(action: { isSecure.toggle() }) {
                     Image(systemName: isSecure ? "eye" : "eye.slash")
-                        .foregroundColor(.appSecondaryText)
+                        .foregroundColor(Color.appSecondaryText)
                 }
             }
             .padding(AppSpacing.small)
-            .background(.appSecondaryBackground)
+            .background(Color.appSecondaryBackground)
             .cornerRadius(AppRadius.input)
             .overlay(
                 RoundedRectangle(cornerRadius: AppRadius.input)
@@ -200,8 +200,8 @@ struct AppSecureField: View {
             // Error Message
             if let errorMessage = errorMessage {
                 Label(errorMessage, systemImage: "exclamationmark.circle")
-                    .font(.appCaption)
-                    .foregroundColor(.appError)
+                    .font(Font.appCaption)
+                    .foregroundColor(Color.appError)
             }
         }
     }

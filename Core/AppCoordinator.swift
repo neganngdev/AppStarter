@@ -69,11 +69,17 @@ class AppCoordinator: ObservableObject {
                 )
                 
             case .main:
-                MainAppView()
-                    .sheet(isPresented: $showSettings) {
+                MainTabView()
+                    .sheet(isPresented: Binding(
+                        get: { self.showSettings },
+                        set: { self.showSettings = $0 }
+                    )) {
                         SettingsView()
                     }
-                    .sheet(isPresented: $showPaywall) {
+                    .sheet(isPresented: Binding(
+                        get: { self.showPaywall },
+                        set: { self.showPaywall = $0 }
+                    )) {
                         PaywallView(
                             plans: SubscriptionPlan.samplePlans,
                             onPurchase: { planID in
@@ -194,7 +200,7 @@ class AppCoordinator: ObservableObject {
     // MARK: - Navigation
     
     /// Show paywall
-    func showPaywall() {
+    func presentPaywall() {
         if currentState == .main {
             showPaywall = true
         } else {
@@ -223,64 +229,6 @@ class AppCoordinator: ObservableObject {
     }
 }
 
-// MARK: - Main App View
-
-/// Placeholder main app view
-/// CUSTOMIZE: Replace with your actual main app content
-struct MainAppView: View {
-    var body: some View {
-        TabView {
-            HomeView()
-                .tabItem {
-                    Label("Home", systemImage: "house.fill")
-                }
-            
-            SettingsView()
-                .tabItem {
-                    Label("Settings", systemImage: "gear")
-                }
-        }
-    }
-}
-
-// MARK: - Home View
-
-/// Placeholder home view
-/// CUSTOMIZE: Replace with your actual home screen
-struct HomeView: View {
-    @StateObject private var coordinator = AppCoordinator()
-    
-    var body: some View {
-        NavigationView {
-            VStack(spacing: AppSpacing.large) {
-                Image(systemName: "star.fill")
-                    .font(.system(size: 80))
-                    .foregroundStyle(
-                        LinearGradient(
-                            colors: [.appPrimary, .appAccent],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
-                
-                Text("Welcome to AppStarter!")
-                    .font(.appLargeTitle)
-                    .fontWeight(.bold)
-                
-                Text("Your app is ready to customize")
-                    .font(.appBody)
-                    .foregroundColor(.appSecondaryText)
-                
-                AppButton("Go Premium", style: .primary, size: .large) {
-                    coordinator.showPaywall()
-                }
-                .padding(.horizontal)
-            }
-            .navigationTitle("Home")
-        }
-    }
-}
-
 // MARK: - Permissions View
 
 /// Placeholder permissions view
@@ -294,15 +242,15 @@ struct PermissionsView: View {
             
             Image(systemName: "bell.badge.fill")
                 .font(.system(size: 80))
-                .foregroundColor(.appPrimary)
+                .foregroundColor(AppConfig.primaryColor)
             
             Text("Enable Notifications")
-                .font(.appTitle)
+                .font(Font.appTitle)
                 .fontWeight(.bold)
             
             Text("Stay updated with important information")
-                .font(.appBody)
-                .foregroundColor(.appSecondaryText)
+                .font(.system(size: 17))
+                .foregroundColor(AppConfig.secondaryTextColor)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
             
@@ -318,8 +266,8 @@ struct PermissionsView: View {
             Button("Skip") {
                 onComplete()
             }
-            .font(.appBody)
-            .foregroundColor(.appSecondaryText)
+            .font(Font.appBody)
+            .foregroundColor(AppConfig.secondaryTextColor)
             .padding(.bottom, AppSpacing.xLarge)
         }
     }

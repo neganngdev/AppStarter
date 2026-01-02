@@ -145,7 +145,7 @@ struct PaywallModifier: ViewModifier {
                     }
                 )
             }
-            .onChange(of: trigger) { oldValue, newValue in
+            .onChange(of: trigger) { newValue in
                 if newValue {
                     coordinator.show()
                 }

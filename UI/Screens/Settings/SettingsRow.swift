@@ -20,7 +20,7 @@ struct SettingsRow: View {
     
     init(
         icon: String? = nil,
-        iconColor: Color = .appPrimary,
+        iconColor: Color = Color.appPrimary,
         title: String,
         type: RowType
     ) {
@@ -41,8 +41,8 @@ struct SettingsRow: View {
             
             // Title
             Text(title)
-                .font(.appBody)
-                .foregroundColor(.appText)
+                .font(Font.appBody)
+                .foregroundColor(Color.appText)
             
             Spacer()
             
@@ -52,12 +52,12 @@ struct SettingsRow: View {
                 HStack(spacing: AppSpacing.xxSmall) {
                     if let value = value {
                         Text(value)
-                            .font(.appBody)
-                            .foregroundColor(.appSecondaryText)
+                            .font(Font.appBody)
+                            .foregroundColor(Color.appSecondaryText)
                     }
                     Image(systemName: "chevron.right")
-                        .font(.caption)
-                        .foregroundColor(.appTertiaryText)
+                        .font(Font.caption)
+                        .foregroundColor(Color.appTertiaryText)
                 }
                 
             case .toggle(let isOn):
@@ -69,8 +69,8 @@ struct SettingsRow: View {
                 
             case .info(let value):
                 Text(value)
-                    .font(.appBody)
-                    .foregroundColor(.appSecondaryText)
+                    .font(Font.appBody)
+                    .foregroundColor(Color.appSecondaryText)
             }
         }
         .padding(.vertical, AppSpacing.xSmall)
@@ -100,7 +100,7 @@ struct TappableSettingsRow: View {
     
     init(
         icon: String? = nil,
-        iconColor: Color = .appPrimary,
+        iconColor: Color = Color.appPrimary,
         title: String,
         value: String? = nil,
         action: @escaping () -> Void
@@ -143,14 +143,14 @@ struct TappableSettingsRow: View {
         
         SettingsRow(
             icon: "info.circle.fill",
-            iconColor: .appInfo,
+            iconColor: Color.appInfo,
             title: "Version",
             type: .info(value: "1.0.0")
         )
         
         TappableSettingsRow(
             icon: "envelope.fill",
-            iconColor: .appAccent,
+            iconColor: Color.appAccent,
             title: "Contact Support"
         ) { }
     }

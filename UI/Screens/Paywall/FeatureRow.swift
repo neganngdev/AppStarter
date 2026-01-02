@@ -15,7 +15,7 @@ struct FeatureRow: View {
     let text: String
     let iconColor: Color
     
-    init(_ text: String, iconColor: Color = .appPrimary) {
+    init(_ text: String, iconColor: Color = Color.appPrimary) {
         self.text = text
         self.iconColor = iconColor
     }
@@ -27,8 +27,8 @@ struct FeatureRow: View {
                 .font(.title3)
             
             Text(text)
-                .font(.appBody)
-                .foregroundColor(.appText)
+                .font(Font.appBody)
+                .foregroundColor(Color.appText)
             
             Spacer()
         }
@@ -42,7 +42,7 @@ struct FeatureList: View {
     let features: [String]
     let iconColor: Color
     
-    init(features: [String], iconColor: Color = .appPrimary) {
+    init(features: [String], iconColor: Color = Color.appPrimary) {
         self.features = features
         self.iconColor = iconColor
     }
@@ -61,8 +61,8 @@ struct FeatureList: View {
 #Preview("Feature Row") {
     VStack(spacing: AppSpacing.medium) {
         FeatureRow("Unlimited access to all features")
-        FeatureRow("Ad-free experience", iconColor: .appSuccess)
-        FeatureRow("Priority support", iconColor: .appPremium)
+        FeatureRow("Ad-free experience", iconColor: Color.appSuccess)
+        FeatureRow("Priority support", iconColor: Color.appPremium)
     }
     .padding()
 }

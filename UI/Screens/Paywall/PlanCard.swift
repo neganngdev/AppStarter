@@ -22,19 +22,19 @@ struct PlanCard: View {
                 // Header with name and popular badge
                 HStack {
                     Text(plan.name)
-                        .font(.appHeadline)
-                        .foregroundColor(.appText)
+                        .font(Font.appHeadline)
+                        .foregroundColor(Color.appText)
                     
                     Spacer()
                     
                     if plan.isPopular {
                         Text("POPULAR")
-                            .font(.appCaption)
+                            .font(Font.appCaption)
                             .fontWeight(.bold)
                             .foregroundColor(.white)
                             .padding(.horizontal, AppSpacing.xSmall)
                             .padding(.vertical, AppSpacing.xxSmall)
-                            .background(.appPrimary)
+                            .background(Color.appPrimary)
                             .cornerRadius(AppRadius.xSmall)
                     }
                 }
@@ -42,24 +42,24 @@ struct PlanCard: View {
                 // Price
                 HStack(alignment: .firstTextBaseline, spacing: AppSpacing.xxSmall) {
                     Text(plan.price)
-                        .font(.appTitle)
+                        .font(Font.appTitle)
                         .fontWeight(.bold)
-                        .foregroundColor(.appText)
+                        .foregroundColor(Color.appText)
                     
                     Text("/ \(plan.period)")
-                        .font(.appBody)
-                        .foregroundColor(.appSecondaryText)
+                        .font(Font.appBody)
+                        .foregroundColor(Color.appSecondaryText)
                 }
                 
                 // Trial or Savings
                 if let trialText = plan.trialText {
                     Label(trialText, systemImage: "gift.fill")
-                        .font(.appCaption)
-                        .foregroundColor(.appSuccess)
+                        .font(Font.appCaption)
+                        .foregroundColor(Color.appSuccess)
                 } else if let savingsText = plan.savingsText {
                     Label(savingsText, systemImage: "tag.fill")
-                        .font(.appCaption)
-                        .foregroundColor(.appSuccess)
+                        .font(Font.appCaption)
+                        .foregroundColor(Color.appSuccess)
                 }
             }
             .padding(AppSpacing.medium)
@@ -88,14 +88,14 @@ struct CompactPlanCard: View {
             HStack {
                 // Selection indicator
                 Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
-                    .foregroundColor(isSelected ? .appPrimary : .appBorder)
+                    .foregroundColor(isSelected ? Color.appPrimary : Color.appBorder)
                     .font(.title3)
                 
                 VStack(alignment: .leading, spacing: AppSpacing.xxSmall) {
                     HStack {
                         Text(plan.name)
-                            .font(.appBodyEmphasized)
-                            .foregroundColor(.appText)
+                            .font(Font.appBodyEmphasized)
+                            .foregroundColor(Color.appText)
                         
                         if plan.isPopular {
                             Text("POPULAR")
@@ -103,19 +103,19 @@ struct CompactPlanCard: View {
                                 .foregroundColor(.white)
                                 .padding(.horizontal, 4)
                                 .padding(.vertical, 2)
-                                .background(.appPrimary)
+                                .background(Color.appPrimary)
                                 .cornerRadius(3)
                         }
                     }
                     
                     Text(plan.priceDisplay)
-                        .font(.appCaption)
-                        .foregroundColor(.appSecondaryText)
+                        .font(Font.appCaption)
+                        .foregroundColor(Color.appSecondaryText)
                     
                     if let savingsText = plan.savingsText {
                         Text(savingsText)
-                            .font(.appCaption2)
-                            .foregroundColor(.appSuccess)
+                            .font(Font.appCaption2)
+                            .foregroundColor(Color.appSuccess)
                     }
                 }
                 

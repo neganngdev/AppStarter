@@ -88,15 +88,15 @@ extension AppButton {
         var backgroundColor: Color {
             switch self {
             case .primary:
-                return .appPrimary
+                return Color.appPrimary
             case .secondary:
                 return .clear
             case .tertiary:
                 return .clear
             case .destructive:
-                return .appError
+                return Color.appError
             case .success:
-                return .appSuccess
+                return Color.appSuccess
             }
         }
         
@@ -105,9 +105,9 @@ extension AppButton {
             case .primary, .destructive, .success:
                 return .white
             case .secondary:
-                return .appPrimary
+                return Color.appPrimary
             case .tertiary:
-                return .appText
+                return Color.appText
             }
         }
         
@@ -116,7 +116,7 @@ extension AppButton {
             case .primary, .destructive, .success:
                 return .clear
             case .secondary:
-                return .appPrimary
+                return Color.appPrimary
             case .tertiary:
                 return .clear
             }
@@ -144,11 +144,11 @@ extension AppButton {
         var font: Font {
             switch self {
             case .small:
-                return .appButtonSmall
+                return Font.appButtonSmall
             case .medium:
-                return .appButtonSecondary
+                return Font.appButtonSecondary
             case .large:
-                return .appButton
+                return Font.appButton
             }
         }
         
@@ -188,11 +188,17 @@ extension AppButton {
 // MARK: - Previews
 
 #Preview("Button Styles") {
-    VStack(spacing: AppSpacing.medium) {
-        AppButton("Primary Button", style: .primary) { }
-        AppButton("Secondary Button", style: .secondary) { }
-        AppButton("Tertiary Button", style: .tertiary) { }
-        AppButton("Destructive Button", style: .destructive) { }
+    VStack(spacing: AppSpacing.large) {
+        AppButton("Primary Button", style: .primary, size: .large) {
+            print("Primary tapped")
+        }
+        .tint(Color.appPrimary)
+        
+        AppButton("Secondary Button", style: .secondary, size: .medium) {
+            print("Secondary tapped")
+        }
+        
+        AppButton("Tertiary Button", style: .tertiary, size: .small) { }
         AppButton("Success Button", style: .success) { }
     }
     .padding()
@@ -209,9 +215,17 @@ extension AppButton {
 
 #Preview("Button States") {
     VStack(spacing: AppSpacing.medium) {
-        AppButton("Normal", style: .primary) { }
-        AppButton("Loading", style: .primary, isLoading: true) { }
-        AppButton("Disabled", style: .primary, isDisabled: true) { }
+        AppButton("With Icon", icon: "star.fill", style: .primary, size: .medium) {
+            print("Icon button tapped")
+        }
+        .tint(Color.appPrimary)
+        
+        AppButton("Loading", style: .primary, size: .medium, isLoading: true) {}
+            .tint(Color.appText)
+        
+        AppButton("Disabled", style: .primary, size: .medium) {}
+            .disabled(true)
+            .tint(Color.appPrimary)
     }
     .padding()
 }

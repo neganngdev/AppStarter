@@ -58,7 +58,7 @@ actor NetworkManager {
     /// let user: User = try await NetworkManager.shared.request(GetUserEndpoint(userID: "123"))
     /// ```
     func request<T: APIEndpoint>(_ endpoint: T) async throws -> T.Response {
-        let request = try buildRequest(from: endpoint)
+        let request = try await buildRequest(from: endpoint)
         
         if Environment.current.logNetworkRequests {
             logRequest(request)
@@ -195,7 +195,7 @@ actor NetworkManager {
     // MARK: - Request Building
     
     /// Build URLRequest from endpoint
-    private func buildRequest<T: APIEndpoint>(from endpoint: T) throws -> URLRequest {
+    private func buildRequest<T: APIEndpoint>(from endpoint: T) async throws -> URLRequest {
         // Build URL
         var urlComponents = URLComponents(
             url: baseURL.appendingPathComponent(endpoint.path),

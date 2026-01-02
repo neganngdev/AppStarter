@@ -31,12 +31,12 @@ struct LoadingModifier: ViewModifier {
                     
                     if let message = message {
                         Text(message)
-                            .font(.appBody)
+                            .font(Font.appBody)
                             .foregroundColor(.white)
                     }
                 }
                 .padding(AppSpacing.large)
-                .background(.appSecondaryBackground)
+                .background(Color.appSecondaryBackground)
                 .cornerRadius(AppRadius.medium)
                 .shadow(radius: 10)
             }

@@ -7,6 +7,7 @@ Build and ship iOS apps faster with this production-ready template featuring onb
 ## 🎯 What's Included
 
 ### Core Systems
+
 - ✅ **App Coordinator** - Smart navigation flow with deep linking
 - ✅ **Configuration** - Environment-based settings (Debug/Release)
 - ✅ **Extensions** - String, Date, Color, View, Collection utilities
@@ -16,6 +17,7 @@ Build and ship iOS apps faster with this production-ready template featuring onb
 - ✅ **Monetization** - RevenueCat subscription wrapper
 
 ### UI & UX
+
 - ✅ **Design System** - Colors, fonts, spacing, radius, shadows
 - ✅ **UI Components** - Buttons, text fields, cards, loading, errors
 - ✅ **Onboarding** - Beautiful onboarding flow with coordinator
@@ -24,6 +26,7 @@ Build and ship iOS apps faster with this production-ready template featuring onb
 - ✅ **Main App** - Tab-based navigation structure
 
 ### Utilities
+
 - ✅ **View Modifiers** - Toast, loading, keyboard handling, conditionals
 - ✅ **Haptic Feedback** - Easy-to-use haptic manager
 - ✅ **Logger** - Debug/production logging with os.Logger
@@ -32,6 +35,7 @@ Build and ship iOS apps faster with this production-ready template featuring onb
 ## 🚀 Quick Start
 
 ### 1. Clone or Download
+
 ```bash
 git clone https://github.com/neganngdev/AppStarter.git MyNewApp
 cd MyNewApp
@@ -40,7 +44,9 @@ git init     # Start fresh
 ```
 
 ### 2. Customize Configuration
+
 Open `Configuration/AppConfig.swift` and update:
+
 ```swift
 static let appName = "Your App Name"
 static let bundleIdentifier = "com.yourcompany.yourapp"
@@ -49,17 +55,20 @@ static let supportEmail = "support@yourapp.com"
 ```
 
 ### 3. Update Project Settings
+
 - Open in Xcode
 - Change bundle identifier
 - Update app icon (Assets.xcassets)
 - Update app name in Info.plist
 
 ### 4. Configure Services (Optional)
+
 - Add RevenueCat API key for subscriptions
 - Add Firebase/Mixpanel for analytics
 - Configure deep link URL scheme
 
 ### 5. Build Your Features
+
 Add your features in `Features/` folder following MVVM pattern.
 
 See [CUSTOMIZATION_GUIDE.md](CUSTOMIZATION_GUIDE.md) for detailed steps.
@@ -101,6 +110,7 @@ AppStarter/
 ## ✅ Customization Checklist
 
 ### Essential (Required for every app)
+
 - [ ] Update `AppConfig.swift` with your app details
 - [ ] Change bundle identifier in Xcode
 - [ ] Replace app icon in Assets.xcassets
@@ -110,6 +120,7 @@ AppStarter/
 - [ ] Add your privacy policy and terms URLs
 
 ### Optional (Based on your needs)
+
 - [ ] Add RevenueCat API key if using subscriptions
 - [ ] Configure analytics providers (Firebase, Mixpanel)
 - [ ] Customize design system colors/fonts
@@ -146,6 +157,7 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed architecture overview.
 ## 💡 Tips & Best Practices
 
 ### Adding Features
+
 1. Create folder in `Features/YourFeature/`
 2. Follow MVVM: Models, Views, ViewModels
 3. Use design system components
@@ -153,21 +165,25 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed architecture overview.
 5. Add haptic feedback for interactions
 
 ### Design System
+
 - Always use design tokens (colors, spacing, fonts)
 - Use provided view modifiers for consistency
 - Create reusable components in `UI/Components/`
 
 ### Analytics
+
 - Track key user actions
 - Use type-safe events from `AnalyticsEvent.swift`
 - Add custom events as needed
 
 ### Subscriptions
+
 - Test with StoreKit Configuration file
 - Use sandbox for testing
 - Track subscription events in analytics
 
 ### Performance
+
 - Use `Logger` for debugging (auto-disabled in production)
 - Lazy load heavy content
 - Cache network responses when appropriate
@@ -175,13 +191,19 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed architecture overview.
 ## 🔧 Common Tasks
 
 ### Change App Colors
-Edit `UI/DesignSystem/AppColors.swift`:
+
+Edit `Core/Extensions/Color+Extensions.swift`:
+
 ```swift
 static let appPrimary = Color(hex: "#YOUR_COLOR")
 ```
 
+**Remember**: Always use `Color.appPrimary` with the explicit prefix in your views to avoid type ambiguity.
+
 ### Add Onboarding Page
+
 Edit `OnboardingCoordinator.swift`:
+
 ```swift
 pages = [
     OnboardingPage(icon: "star.fill", title: "Welcome", description: "..."),
@@ -190,7 +212,9 @@ pages = [
 ```
 
 ### Add Subscription Plan
+
 Edit `SubscriptionPlan.swift`:
+
 ```swift
 static let samplePlans = [
     SubscriptionPlan(id: "monthly", name: "Monthly", price: "$9.99", ...)
@@ -198,6 +222,7 @@ static let samplePlans = [
 ```
 
 ### Track Custom Event
+
 ```swift
 await AnalyticsManager.shared.trackEvent("custom_event", parameters: [
     "key": "value"
@@ -205,6 +230,7 @@ await AnalyticsManager.shared.trackEvent("custom_event", parameters: [
 ```
 
 ### Show Toast Notification
+
 ```swift
 .toast($showToast, message: "Success!", type: .success)
 ```
@@ -220,6 +246,35 @@ await AnalyticsManager.shared.trackEvent("custom_event", parameters: [
 - iOS 16.0+
 - Xcode 15.0+
 - Swift 5.9+
+
+## ⚠️ Important Compatibility Notes
+
+### Design System Usage
+
+Always use **explicit type prefixes** when using design system colors and fonts to avoid type ambiguity:
+
+```swift
+// ✅ Correct - Explicit prefixes
+Text("Hello")
+    .foregroundColor(Color.appPrimary)
+    .font(Font.appBody)
+
+// ❌ Wrong - Ambiguous, will cause compilation errors
+Text("Hello")
+    .foregroundColor(.appPrimary)  // Error: Ambiguous use
+    .font(.appBody)
+```
+
+### iOS 16 Compatibility
+
+The `onChange` modifier uses iOS 16 syntax. The single-parameter closure is used for broader compatibility:
+
+```swift
+// iOS 16+ compatible
+.onChange(of: value) { newValue in
+    // Handle change
+}
+```
 
 ## 📝 License
 

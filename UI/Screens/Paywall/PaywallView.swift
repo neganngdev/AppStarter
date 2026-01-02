@@ -60,20 +60,20 @@ struct PaywallView: View {
                             .font(.system(size: 60))
                             .foregroundStyle(
                                 LinearGradient(
-                                    colors: [.appPremium, .appPrimary],
+                                    colors: [Color.appPremium, Color.appPrimary],
                                     startPoint: .topLeading,
                                     endPoint: .bottomTrailing
                                 )
                             )
                         
                         Text("Unlock Premium")
-                            .font(.appLargeTitle)
+                            .font(Font.appLargeTitle)
                             .fontWeight(.bold)
-                            .foregroundColor(.appText)
+                            .foregroundColor(Color.appText)
                         
                         Text("Get unlimited access to all features")
-                            .font(.appBody)
-                            .foregroundColor(.appSecondaryText)
+                            .font(Font.appBody)
+                            .foregroundColor(Color.appSecondaryText)
                             .multilineTextAlignment(.center)
                     }
                     .padding(.top, AppSpacing.xxLarge)
@@ -111,8 +111,8 @@ struct PaywallView: View {
                     Button("Restore Purchases") {
                         handleRestore()
                     }
-                    .font(.appBody)
-                    .foregroundColor(.appSecondaryText)
+                    .font(Font.appBody)
+                    .foregroundColor(Color.appSecondaryText)
                     
                     // Terms & Privacy
                     HStack(spacing: AppSpacing.xxSmall) {
@@ -126,8 +126,8 @@ struct PaywallView: View {
                             // Open privacy
                         }
                     }
-                    .font(.appCaption)
-                    .foregroundColor(.appTertiaryText)
+                    .font(Font.appCaption)
+                    .foregroundColor(Color.appTertiaryText)
                     .padding(.bottom, AppSpacing.large)
                 }
             }
@@ -139,9 +139,9 @@ struct PaywallView: View {
                     Button(action: onDismiss) {
                         Image(systemName: "xmark")
                             .font(.title3)
-                            .foregroundColor(.appSecondaryText)
+                            .foregroundColor(Color.appSecondaryText)
                             .padding(AppSpacing.small)
-                            .background(.appSecondaryBackground)
+                            .background(Color.appSecondaryBackground)
                             .clipShape(Circle())
                     }
                     .padding()
@@ -149,7 +149,7 @@ struct PaywallView: View {
                 Spacer()
             }
         }
-        .background(.appBackground)
+        .background(Color.appBackground)
         .errorBanner(error: errorMessage, isPresented: $showError)
     }
     
@@ -217,16 +217,16 @@ struct CompactPaywallView: View {
             HStack {
                 VStack(alignment: .leading, spacing: AppSpacing.xxSmall) {
                     Text("Go Premium")
-                        .font(.appTitle)
+                        .font(Font.appTitle)
                         .fontWeight(.bold)
                     Text("Unlock all features")
-                        .font(.appBody)
-                        .foregroundColor(.appSecondaryText)
+                        .font(Font.appBody)
+                        .foregroundColor(Color.appSecondaryText)
                 }
                 Spacer()
                 Button(action: onDismiss) {
                     Image(systemName: "xmark")
-                        .foregroundColor(.appSecondaryText)
+                        .foregroundColor(Color.appSecondaryText)
                 }
             }
             .padding()
@@ -260,7 +260,7 @@ struct CompactPaywallView: View {
             .padding(.horizontal)
             .padding(.bottom)
         }
-        .background(.appBackground)
+        .background(Color.appBackground)
     }
 }
 

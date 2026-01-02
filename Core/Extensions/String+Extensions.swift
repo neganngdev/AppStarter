@@ -133,17 +133,23 @@ extension String {
         NSLocalizedString(self, bundle: bundle, comment: comment)
     }
     
-    /// Localized string with format arguments
-    /// - Parameters:
-    ///   - arguments: Arguments to substitute in the localized string
+    /// Localized string with arguments
+    /// - Parameter arguments: Arguments to format into the localized string
     /// - Returns: Formatted localized string
     ///
     /// Example:
     /// ```swift
-    /// "hello_user".localized(with: userName) // "Hello, John"
+    /// "Hello %@".localized("World") // Returns localized "Hello World"
     /// ```
-    func localized(with arguments: CVarArg...) -> String {
-        String(format: localized(), arguments: arguments)
+    func localized(_ arguments: CVarArg...) -> String {
+        String(format: NSLocalizedString(self, comment: ""), arguments: arguments)
+    }
+    
+    /// Localized string with comment
+    /// - Parameter comment: Comment for translators
+    /// - Returns: Localized string
+    func localized(comment: String) -> String {
+        NSLocalizedString(self, comment: comment)
     }
     
     // MARK: - Subscripting

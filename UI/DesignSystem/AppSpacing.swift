@@ -119,12 +119,12 @@ extension View {
  ```swift
  VStack(alignment: .leading, spacing: AppSpacing.small) {
      Text("Title")
-         .font(.appHeadline)
+         .font(Font.appHeadline)
      Text("Description")
-         .font(.appBody)
+         .font(Font.appBody)
  }
  .cardPadding()
- .background(.appSecondaryBackground)
+ .background(Color.appSecondaryBackground)
  .cornerRadius(AppRadius.medium)
  ```
  

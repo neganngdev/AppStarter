@@ -39,11 +39,22 @@ struct AppConfig {
     // MARK: - Branding
     // CUSTOMIZE: Define your app's visual identity
     
-    /// Primary brand color (main theme color)
-    static let primaryColor = Color.blue
+    /// Primary brand color
+    /// CUSTOMIZE: Change to your brand color (hex string)
+    static let primaryColorHex = "#007AFF"
     
-    /// Accent color (highlights, CTAs)
-    static let accentColor = Color.purple
+    /// Accent color
+    /// CUSTOMIZE: Change to complement your primary color (hex string)
+    static let accentColorHex = "#5856D6"
+    
+    /// Computed Color properties
+    static var primaryColor: Color {
+        Color(hex: primaryColorHex)
+    }
+    
+    static var accentColor: Color {
+        Color(hex: accentColorHex)
+    }
     
     /// Background color
     static let backgroundColor = Color(.systemBackground)
@@ -155,6 +166,12 @@ struct AppConfig {
     static let monthlySubscriptionID = "com.indiedev.appstarter.monthly"
     static let yearlySubscriptionID = "com.indiedev.appstarter.yearly"
     static let lifetimeSubscriptionID = "com.indiedev.appstarter.lifetime"
+    
+    // MARK: - App Store
+    // CUSTOMIZE: Add your App Store ID
+    
+    /// App Store ID (required for rating and sharing)
+    static let appStoreID = "123456789"
     
     // MARK: - URLs
     // CUSTOMIZE: Add your app's URLs
